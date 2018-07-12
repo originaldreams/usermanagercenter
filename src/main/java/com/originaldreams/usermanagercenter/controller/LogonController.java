@@ -22,12 +22,19 @@ public class LogonController {
 
     @RequestMapping(value = "/logon",method = RequestMethod.POST)
     ResponseEntity logon(String userName,String phone,String wxId,String email,String password){
-        if(userName == null && phone == null && email == null && password == null){
-            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
-                    .body(userService.logon( userName, phone, wxId, email, password));
-        }else{
+        try{
+            if(userName == null && phone == null && email == null && password == null){
+                return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(userService.logon( userName, phone, wxId, email, password));
+            }else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .contentType(MediaType.APPLICATION_JSON).body("Error:请求参数异常");
+            }
+        }catch (Exception e){
+            logger.error("logonError :" + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .contentType(MediaType.APPLICATION_JSON).body("Error:请求参数异常");
         }
+
     }
 }
