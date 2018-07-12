@@ -13,18 +13,18 @@ public interface UserMapper {
     String tableName = "user";
 
 
-     @Select("SELECT id, phone, password, createTime, type FROM " + tableName + " WHERE id = #{id}")
+     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask FROM " + tableName + " WHERE id = #{id}")
      User getById(Integer Id);
 
-     @Select("SELECT id, phone, password, createTime, type FROM " + tableName)
+     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask FROM " + tableName)
      List<User> getAll();
 
-     @Insert("INSERT INTO " + tableName + "(id, phone, password, createTime, type) VALUES (#{id}, #{phone}, #{password}, #{createTime}, #{type})")
+     @Insert("INSERT INTO " + tableName + "(id, userName, phone, wxId, email, password, createTime, mask) VALUES (#{id}, #{userName}, #{phone}, #{wxId}, #{email}, #{password}, #{createTime}, #{mask})")
      Integer insert(User user);
 
      @Delete("DELETE FROM " + tableName + " WHERE id = #{id}")
      Integer deleteById(Integer id);
-     @Update("UPDATE " + tableName + " SET phone=#{phone}, password=#{password}, createTime=#{createTime}, type=#{type} WHERE id = #{id}")
+     @Update("UPDATE " + tableName + " SET userName=#{userName}, phone=#{phone}, wxId=#{wxId}, email=#{email}, password=#{password}, createTime=#{createTime}, mask=#{mask} WHERE id = #{id}")
      Integer update(User user);
 
 
