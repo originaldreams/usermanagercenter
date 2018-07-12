@@ -5,7 +5,7 @@ package com.originaldreams.usermanagercenter.common;
  * 当新增了组件或接口，需要在该类中注册，详细说明新增的组件或接口
  * 当一个组件需要调用其他组件时，将该类复制到组件下的commom包中即可
  */
-public class OriginalDreamsServiceName {
+public class MyServiceName {
     /**
      * 服务注册中心
      * 维护所有已启动的组件

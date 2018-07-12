@@ -5,6 +5,26 @@ import java.util.List;
 
 public class User {
     /**
+     * 已删除
+     */
+    private static int isDelete = 1 << 0;
+    /**
+     * 允许使用用户名登录
+     */
+    private static int permitUserNameLogon = 1 << 1;
+    /**
+     * 允许使用手机号登录
+     */
+    private static int permitPhoneLogon = 1 << 2;
+    /**
+     * 允许使用邮箱登录
+     */
+    private static int permitEmailLogon = 1 << 3;
+    /**
+     * 允许使用微信登录
+     */
+    private static int permitWXIdLogon = 1 << 4;
+    /**
     * id
     */
      private Integer id;
@@ -83,6 +103,21 @@ public class User {
      }
      public void setMask(Long mask){
            this.mask = mask;
+     }
+     public boolean isDelete(){
+        return (mask & isDelete ) == isDelete;
+     }
+     public boolean permitUserNameLogon(){
+        return (mask & permitUserNameLogon ) == permitUserNameLogon;
+     }
+     public boolean permitPhoneLogon(){
+         return (mask & permitPhoneLogon ) == permitPhoneLogon;
+     }
+     public boolean permitEmailLogon(){
+         return (mask & permitEmailLogon ) == permitEmailLogon;
+     }
+     public boolean permitWXIdLogon(){
+         return (mask & permitWXIdLogon ) == permitWXIdLogon;
      }
 
 
