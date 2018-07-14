@@ -1,20 +1,22 @@
 package com.originaldreams.usermanagercenter.service;
 
-import com.originaldreams.usermanagercenter.common.MD5Utils;
-import com.originaldreams.usermanagercenter.common.MyResponseHeader;
+import com.originaldreams.usermanagercenter.common.MyMD5Utils;
+import com.originaldreams.usermanagercenter.common.MyResponseObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.mapper.UserMapper;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserService {
     @Autowired
     private UserMapper userMapper;
+
+    private Logger logger = LoggerFactory.getLogger(UserService.class);
 
     /**
      * 判断是否使用密码登录
@@ -28,13 +30,11 @@ public class UserService {
      * @param email
      * @param password
      * @return
-     * @throws Exception
      */
-    public Map<String,Object> logon(String userName, String phone, String wxId, String email, String password) throws Exception{
-        Map<String,Object> result = new HashMap<>();
+    public MyResponseObject logon(String userName, String phone, String wxId, String email, String password)  {
         User user = null;
         boolean checkPassword = false;
-        result.put(MyResponseHeader.success,MyResponseHeader.success_code_success);
+        MyResponseObject responseObject = new MyResponseObject();
         if(password != null){   //使用密码登录
             if(userName != null){   //用户名密码组合
                 user = userMapper.getByUserName(userName);
@@ -42,8 +42,8 @@ public class UserService {
                 if(user != null && user.permitUserNameLogon()){
                     checkPassword = true;
                 }else{
-                    result.put(MyResponseHeader.success,MyResponseHeader.success_code_failed);
-                    result.put(MyResponseHeader.message,"不支持用户名登录");
+                    responseObject.setSuccess(MyResponseObject.success_code_failed);
+                    responseObject.setMessage("不支持用户名登录");
                 }
             }else if(phone != null){    //手机号密码组合
                 user = userMapper.getByPhone(phone);
@@ -52,8 +52,8 @@ public class UserService {
                     checkPassword = true;
 
                 }else{
-                    result.put(MyResponseHeader.success,MyResponseHeader.success_code_failed);
-                    result.put(MyResponseHeader.message,"不支持手机号登录");
+                    responseObject.setSuccess(MyResponseObject.success_code_failed);
+                    responseObject.setMessage("不支持手机号登录");
                 }
             }else if(email != null){    //邮箱密码组合
                 user = userMapper.getByEmail(email);
@@ -61,24 +61,29 @@ public class UserService {
                 if(user != null && user.permitEmailLogon()){
                     checkPassword = true;
                 }else{
-                    result.put(MyResponseHeader.success,MyResponseHeader.success_code_failed);
-                    result.put(MyResponseHeader.message,"不支持邮箱登录");
+                    responseObject.setSuccess(MyResponseObject.success_code_failed);
+                    responseObject.setMessage("不支持邮箱登录");
                 }
             }
-
-            //校验密码
-            if(checkPassword && MD5Utils.checkqual(password,user.getPassword())){
-                result.put(MyResponseHeader.date,user.getId());
-                result.put(MyResponseHeader.message,"登录成功");
-            }else {
-                result.put(MyResponseHeader.success,MyResponseHeader.success_code_failed);
-                result.put(MyResponseHeader.message,"用户名密码错误");
+            try{
+                //校验密码
+                if(checkPassword && MyMD5Utils.checkqual(password,user.getPassword())){
+                    responseObject.setData(user.getId());
+                }else {
+                    responseObject.setSuccess(MyResponseObject.success_code_failed);
+                    responseObject.setMessage("用户名密码错误");
+                }
+            }catch (Exception e){
+                logger.error("校验密码异常 ",e);
+                responseObject.setSuccess(MyResponseObject.success_code_failed);
+                responseObject.setMessage("用户名密码错误");
             }
+
 
         }else{
             //TODO 微信登录
         }
-        return result;
+        return responseObject;
     }
 
     public User getById(Integer id){
