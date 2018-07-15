@@ -1,12 +1,7 @@
 package com.originaldreams.usermanagercenter.mapper;
 
 import com.originaldreams.usermanagercenter.entity.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.springframework.context.annotation.Bean;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,29 +10,30 @@ public interface UserMapper {
     String tableName = "user";
 
 
-     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask FROM " + tableName + " WHERE id = #{id}")
+     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE id = #{id} AND isDelete = 0")
      User getById(Integer Id);
 
-     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask FROM " + tableName)
+     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " isDelete = 0 ")
      List<User> getAll();
 
-     @Insert("INSERT INTO " + tableName + "(id, userName, phone, wxId, email, password, createTime, mask) VALUES (#{id}, #{userName}, #{phone}, #{wxId}, #{email}, #{password}, #{createTime}, #{mask})")
+     @Insert("INSERT INTO " + tableName + "(userName, phone, wxId, email, password, createTime, mask) VALUES (#{userName}, #{phone}, #{wxId}, #{email}, #{password}, #{createTime}, #{mask})")
+     @Options(useGeneratedKeys = true)
      Integer insert(User user);
 
-     @Delete("DELETE FROM " + tableName + " WHERE id = #{id}")
+     @Delete("UPDATE " + tableName + " SET isDelete = 1 , WHERE id = #{id}")
      Integer deleteById(Integer id);
      @Update("UPDATE " + tableName + " SET userName=#{userName}, phone=#{phone}, wxId=#{wxId}, email=#{email}, password=#{password}, createTime=#{createTime}, mask=#{mask} WHERE id = #{id}")
      Integer update(User user);
 
-     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask FROM " + tableName + " WHERE id = #{id}")
-     User getByUserName(String userName);
+     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE userName = #{userName} AND isDelete = #{isDelete}")
+     User getByUserName(String userName,int isDelete);
 
-     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask FROM " + tableName + " WHERE id = #{id}")
-     User getByPhone(String phone);
+     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE phone = #{phone} AND isDelete = #{isDelete}")
+     User getByPhone(String phone,int isDelete);
 
-     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask FROM " + tableName + " WHERE id = #{id}")
-     User getByWXId(String wxId);
+     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE wxId = #{wxId} AND isDelete = #{isDelete}")
+     User getByWXId(String wxId,int isDelete);
 
-     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask FROM " + tableName + " WHERE id = #{id}")
-     User getByEmail(String email);
+     @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE email = #{email} AND isDelete = #{isDelete}")
+     User getByEmail(String email,int isDelete);
 }

@@ -21,6 +21,9 @@ public class UserController {
     @Resource
     private UserService userService;
 
+
+
+
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     ResponseEntity getById(Integer id){
         User result = userService.getById(id);

@@ -5,31 +5,27 @@ import java.util.List;
 
 public class User {
     /**
-     * 已删除
-     */
-    private static int isDelete = 1 << 0;
-    /**
      * 允许使用用户名登录
      */
-    private static int permitUserNameLogon = 1 << 1;
+    private static int permitUserNameLogon = 1 << 0;
     /**
      * 允许使用手机号登录
      */
-    private static int permitPhoneLogon = 1 << 2;
+    private static int permitPhoneLogon = 1 << 1;
     /**
      * 允许使用邮箱登录
      */
-    private static int permitEmailLogon = 1 << 3;
+    private static int permitEmailLogon = 1 << 2;
     /**
      * 允许使用微信登录
      */
-    private static int permitWXIdLogon = 1 << 4;
+    private static int permitWXIdLogon = 1 << 3;
     /**
     * id
     */
      private Integer id;
     /**
-    * 用户名,不重复，默认为手机号，可用于登录
+    * 用户名,不重复，可用于登录
     */
      private String userName;
     /**
@@ -56,6 +52,10 @@ public class User {
     * 掩码值，用来表示一系列开关（如：是否开启用户名登录、是否已删除、是否开启邮箱登录等）
     */
      private Long mask;
+    /**
+     * 是否已删除 0:未删除 1:已删除
+     */
+    private int isDelete;
      public Integer getId(){
            return this.id;
      }
@@ -104,10 +104,16 @@ public class User {
      public void setMask(Long mask){
            this.mask = mask;
      }
-     public boolean isDelete(){
-        return (mask & isDelete ) == isDelete;
-     }
-     public boolean permitUserNameLogon(){
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public boolean permitUserNameLogon(){
         return (mask & permitUserNameLogon ) == permitUserNameLogon;
      }
      public boolean permitPhoneLogon(){

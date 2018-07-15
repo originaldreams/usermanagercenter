@@ -1,5 +1,9 @@
 package com.originaldreams.usermanagercenter.common;
 
+/**
+ * 规定统一的消息返回格式
+ * 在Controller中统一返回ResponseEntity格式的数据，在ResponseEntity的body里，必须使用MyResponseObject格式的数据
+ */
 public class MyResponseObject {
 
     private int success ;
