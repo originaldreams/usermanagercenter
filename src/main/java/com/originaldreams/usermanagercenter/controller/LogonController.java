@@ -1,5 +1,6 @@
 package com.originaldreams.usermanagercenter.controller;
 
+import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +25,18 @@ public class LogonController {
     ResponseEntity logon(String userName,String phone,String wxId,String email,String password){
         try{
             if(userName == null && phone == null && email == null && password == null){
-                return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
-                        .body(userService.logon( userName, phone, wxId, email, password));
-            }else{
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .contentType(MediaType.APPLICATION_JSON).body("Error:请求参数异常");
+
+            }else{
+                User user = new User();
+                if(userName != null) user.setUserName(userName);
+                if(phone != null) user.setPhone(phone);
+                if(wxId != null) user.setWxId(wxId);
+                if(email != null) user.setEmail(email);
+                if(password != null) user.setPassword(password);
+                return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(userService.logon(user));
             }
         }catch (Exception e){
             logger.error("logonError :" + e.getMessage());

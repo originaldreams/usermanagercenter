@@ -1,6 +1,5 @@
 package com.originaldreams.usermanagercenter.common;
 
-import com.originaldreams.serviceregistycenter.entity.Router;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +14,7 @@ public class MyClientRouter {
     /**
      *  可供客户端调用的接口路由
      */
-    public  static Map<String ,Router> routerMap = new HashMap<>();
+    public  static Map<String ,MyRouterObject> routerMap = new HashMap<>();
 
     private final static long byte1th       = 1 << 0;//第1位
     private final static long byte2th       = 1 << 1;//第2位
@@ -33,8 +32,8 @@ public class MyClientRouter {
      * 这个在添加新的router时要仔细检查，服务启动时会根据routerMap来初始化路由表
      */
     static{
-        routerMap.put("LogCenter_Http_Get",new Router(1,"LogCenter_Http_Get",MyServiceRouter.LogCenter_Http_Get,byte1th,byte1th));
-        routerMap.put("LogCenter_Http_Post",new Router(2,"LogCenter_Http_Post",MyServiceRouter.LogCenter_Http_Post,byte1th,byte2th));
+        routerMap.put("LogCenter_Http_Get",new MyRouterObject(1,"LogCenter_Http_Get",MyServiceRouter.LogCenter_Http_Get,byte1th,byte1th));
+        routerMap.put("LogCenter_Http_Post",new MyRouterObject(2,"LogCenter_Http_Post",MyServiceRouter.LogCenter_Http_Post,byte1th,byte2th));
     }
 
 }
