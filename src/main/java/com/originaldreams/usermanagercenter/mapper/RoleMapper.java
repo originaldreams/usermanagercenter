@@ -12,7 +12,7 @@ import java.util.List;
 public interface RoleMapper {
     String tableName = "role";
     String userRoles = "user_roles";
-
+    String roleRouters = "role_routers";
      @Select("SELECT id, name, description, createTime FROM " + tableName + " WHERE id = #{id}")
      Role getById(Integer Id);
 
@@ -26,6 +26,14 @@ public interface RoleMapper {
              +" FROM " + userRoles + " , "+ tableName
              + " WHERE " + userRoles +".roleId =" + tableName + ".id " + userRoles + ".userId = #{userId}" )
      List<Role> getRolesByUserId(Integer userId);
+
+     @Select("SELECT "+ tableName +".id, "
+         + tableName +".name, "
+         + tableName +".description, "
+         + tableName +".createTime "
+         +" FROM " + roleRouters + " , "+ tableName
+         + " WHERE " + roleRouters +".roleId =" + tableName + ".id " + roleRouters + ".routerId = #{routerId}" )
+     List<Role> getRolesByRouterId(Integer routerId);
 
      @Insert("INSERT INTO " + tableName + "(id, name, description, createTime) VALUES (#{id}, #{name}, #{description}, #{createTime})")
      Integer insert(Role role);

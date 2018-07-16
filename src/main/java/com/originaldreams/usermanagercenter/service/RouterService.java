@@ -41,7 +41,9 @@ public class RouterService {
     public MyServiceResponse getAll(){
         return new MyServiceResponse(routerMapper.getAll());
     }
-
+    public MyServiceResponse getRoutersByRoleId(int roleId){
+        return new MyServiceResponse(routerMapper.getRoutersByRoleId(roleId));
+    }
     public Router getById(Integer id){
 
         return routerMapper.getById(id);

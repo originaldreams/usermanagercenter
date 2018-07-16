@@ -11,16 +11,19 @@ import java.util.List;
 @Mapper
 public interface RouterMapper {
     String tableName = "Router";
-
+    String roleRouters = "role_routers";
 
      @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask FROM " + tableName + " WHERE id = #{id}")
      Router getById(Integer Id);
 
-     @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask FROM " + tableName + " WHERE methodName = #{methodName}")
-     Router getByMethodName(String methodName);
-
      @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask FROM " + tableName)
      List<Router> getAll();
+
+     @Select({"SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask FROM "
+             + tableName + "," + roleRouters
+             + " WHERE " + tableName + ".id = " + roleRouters + ".routerId AND roleId = #{roleId}"
+     })
+     List<Router> getRoutersByRoleId(Integer roleId);
 
      @Insert("INSERT INTO " + tableName + "(id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask) VALUES (#{id}, #{serviceName}, #{controllerName}, #{methodName}, #{routerUrl}, #{firstMask}, #{secondMask})")
      Integer insert(Router router);
