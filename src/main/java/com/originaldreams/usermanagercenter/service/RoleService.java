@@ -1,6 +1,8 @@
 package com.originaldreams.usermanagercenter.service;
 
 import com.originaldreams.usermanagercenter.common.MyServiceResponse;
+import com.originaldreams.usermanagercenter.entity.UserRoles;
+import com.originaldreams.usermanagercenter.mapper.UserRolesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.originaldreams.usermanagercenter.entity.Role;
@@ -12,6 +14,9 @@ public class RoleService {
     @Autowired
     private RoleMapper roleMapper;
 
+    @Autowired
+    private UserRolesMapper userRolesMapper;
+
     public MyServiceResponse getAll(){
         return new MyServiceResponse(roleMapper.getAll());
     }
@@ -19,16 +24,23 @@ public class RoleService {
     public MyServiceResponse getRolesByUserId(int userId){
         return new MyServiceResponse(roleMapper.getRolesByUserId(userId));
     }
+
     public MyServiceResponse getRolesByRouterId(int userId){
         return new MyServiceResponse(roleMapper.getRolesByRouterId(userId));
     }
+
+    public MyServiceResponse addRoleForUser(UserRoles userRoles){
+        return new MyServiceResponse(userRolesMapper.insert(userRoles));
+    }
+
     public Role getById(Integer id){
 
         return roleMapper.getById(id);
     }
 
-    public Integer insert(Role role){
-        return roleMapper.insert(role);
+    public MyServiceResponse insert(Role role){
+        roleMapper.insert(role);
+        return new MyServiceResponse(role.getId());
     }
 
     public Integer deleteById(Integer id){

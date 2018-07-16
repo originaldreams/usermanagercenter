@@ -19,7 +19,12 @@ public class Role {
     /**
     * 角色描述
     */
-     private Date createTime = new Date();
+     private Date createTime;
+     public Role(String name,String description){
+         this.name = name;
+         this.description = description;
+         this.createTime = new Date();
+     }
      public Integer getId(){
            return this.id;
      }

@@ -20,7 +20,7 @@ public interface UserRolesMapper {
      @Select("SELECT userId, roleId, createTime FROM " + tableName + " WHERE roleId = #{roleId}")
      UserRoles getByRoleId(Integer roleId);
 
-     @Select("SELECT id, userId, roleId, createTime FROM " + tableName)
+     @Select("SELECT userId, roleId, createTime FROM " + tableName)
      List<UserRoles> getAll();
 
      @Insert("INSERT INTO " + tableName + "(userId, roleId, createTime) VALUES (#{userId}, #{roleId}, #{createTime})")

@@ -1,11 +1,8 @@
 package com.originaldreams.usermanagercenter.mapper;
 
 import com.originaldreams.usermanagercenter.entity.Role;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+
 import java.util.List;
 
 @Mapper
@@ -35,7 +32,8 @@ public interface RoleMapper {
          + " WHERE " + roleRouters +".roleId =" + tableName + ".id " + roleRouters + ".routerId = #{routerId}" )
      List<Role> getRolesByRouterId(Integer routerId);
 
-     @Insert("INSERT INTO " + tableName + "(id, name, description, createTime) VALUES (#{id}, #{name}, #{description}, #{createTime})")
+     @Insert("INSERT INTO " + tableName + "(name, description, createTime) VALUES (#{name}, #{description}, #{createTime})")
+     @Options(useGeneratedKeys = true)
      Integer insert(Role role);
 
      @Delete("DELETE FROM " + tableName + " WHERE id = #{id}")

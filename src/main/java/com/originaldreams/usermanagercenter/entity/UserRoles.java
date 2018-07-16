@@ -16,7 +16,12 @@ public class UserRoles {
     /**
     * 创建时间
     */
-     private Date createTime = new Date();
+     private Date createTime ;
+     public UserRoles(Integer userId,Integer roleId){
+         this.userId = userId;
+         this.roleId = roleId;
+         this.createTime = new Date();
+     }
      public Integer getUserId(){
            return this.userId;
      }

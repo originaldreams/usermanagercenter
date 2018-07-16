@@ -4,7 +4,9 @@ import com.originaldreams.usermanagercenter.cache.MyCache;
 import com.originaldreams.usermanagercenter.common.MyClientRouter;
 import com.originaldreams.usermanagercenter.common.MyRouterObject;
 import com.originaldreams.usermanagercenter.common.MyServiceResponse;
+import com.originaldreams.usermanagercenter.entity.RoleRouters;
 import com.originaldreams.usermanagercenter.entity.Router;
+import com.originaldreams.usermanagercenter.mapper.RoleRoutersMapper;
 import com.originaldreams.usermanagercenter.mapper.RouterMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,8 @@ public class RouterService {
     @Autowired
     private RouterMapper routerMapper;
 
+    @Autowired
+    private RoleRoutersMapper roleRoutersMapper;
 
     private Logger logger = LoggerFactory.getLogger(RouterService.class);
 
@@ -43,6 +47,10 @@ public class RouterService {
     }
     public MyServiceResponse getRoutersByRoleId(int roleId){
         return new MyServiceResponse(routerMapper.getRoutersByRoleId(roleId));
+    }
+
+    public MyServiceResponse addRouterForRole(RoleRouters roleRouters){
+        return new MyServiceResponse(roleRoutersMapper.insert(roleRouters));
     }
     public Router getById(Integer id){
 

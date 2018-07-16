@@ -15,7 +15,12 @@ public class RoleRouters {
     /**
     * 创建时间
     */
-     private Date createTime = new Date();
+     private Date createTime;
+     public RoleRouters(Integer roleId,Integer routerId){
+         this.roleId = roleId;
+         this.routerId = routerId;
+         this.createTime = new Date();
+     }
      public Integer getRoleId(){
            return this.roleId;
      }
