@@ -1,5 +1,6 @@
 package com.originaldreams.usermanagercenter.service;
 
+import com.originaldreams.usermanagercenter.common.MyServiceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.originaldreams.usermanagercenter.entity.Role;
@@ -11,13 +12,13 @@ public class RoleService {
     @Autowired
     private RoleMapper roleMapper;
 
+    public MyServiceResponse getAll(){
+        return new MyServiceResponse(roleMapper.getAll());
+    }
+
     public Role getById(Integer id){
 
         return roleMapper.getById(id);
-    }
-
-    public List<Role> getAll(){
-        return roleMapper.getAll();
     }
 
     public Integer insert(Role role){

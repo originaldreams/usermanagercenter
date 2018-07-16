@@ -12,7 +12,6 @@ import java.util.List;
 public interface UserInfoMapper {
     String tableName = "user_info";
 
-
      @Select("SELECT id, nickName, birthday, gender, address, signature, userPortrait, email, phone, createTime, mask FROM " + tableName + " WHERE id = #{id}")
      UserInfo getById(Integer Id);
 

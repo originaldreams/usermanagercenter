@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 登录控制
+ * 负责用户的登录和注册
+ */
 @RestController
 @RequestMapping("/logon")
 public class LogonController {
