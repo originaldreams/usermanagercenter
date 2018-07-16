@@ -11,13 +11,21 @@ import java.util.List;
 @Mapper
 public interface RoleMapper {
     String tableName = "role";
-
+    String userRoles = "user_roles";
 
      @Select("SELECT id, name, description, createTime FROM " + tableName + " WHERE id = #{id}")
      Role getById(Integer Id);
 
      @Select("SELECT id, name, description, createTime FROM " + tableName)
      List<Role> getAll();
+
+     @Select("SELECT "+ tableName +".id, "
+             + tableName +".name, "
+             + tableName +".description, "
+             + tableName +".createTime "
+             +" FROM " + userRoles + " , "+ tableName
+             + " WHERE " + userRoles +".roleId =" + tableName + ".id " + userRoles + ".userId = #{userId}" )
+     List<Role> getRolesByUserId(Integer userId);
 
      @Insert("INSERT INTO " + tableName + "(id, name, description, createTime) VALUES (#{id}, #{name}, #{description}, #{createTime})")
      Integer insert(Role role);

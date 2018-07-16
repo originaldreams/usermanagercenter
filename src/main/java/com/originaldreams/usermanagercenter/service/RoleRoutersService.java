@@ -11,26 +11,8 @@ public class RoleRoutersService {
     @Autowired
     private RoleRoutersMapper roleRoutersMapper;
 
-    public RoleRouters getById(Integer id){
-
-        return roleRoutersMapper.getById(id);
-    }
-
-    public List<RoleRouters> getAll(){
-        return roleRoutersMapper.getAll();
-    }
-
     public Integer insert(RoleRouters roleRouters){
         return roleRoutersMapper.insert(roleRouters);
     }
-
-    public Integer deleteById(Integer id){
-        return roleRoutersMapper.deleteById(id);
-    }
-
-    public Integer update(RoleRouters roleRouters){
-        return roleRoutersMapper.update(roleRouters);
-    }
-
 
 }

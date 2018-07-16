@@ -16,6 +16,9 @@ public class RoleService {
         return new MyServiceResponse(roleMapper.getAll());
     }
 
+    public MyServiceResponse getRolesByUserId(int userId){
+        return new MyServiceResponse(roleMapper.getRolesByUserId(userId));
+    }
     public Role getById(Integer id){
 
         return roleMapper.getById(id);

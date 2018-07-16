@@ -3,6 +3,7 @@ package com.originaldreams.usermanagercenter.service;
 import com.originaldreams.usermanagercenter.cache.MyCache;
 import com.originaldreams.usermanagercenter.common.MyClientRouter;
 import com.originaldreams.usermanagercenter.common.MyRouterObject;
+import com.originaldreams.usermanagercenter.common.MyServiceResponse;
 import com.originaldreams.usermanagercenter.entity.Router;
 import com.originaldreams.usermanagercenter.mapper.RouterMapper;
 import org.slf4j.Logger;
@@ -37,14 +38,16 @@ public class RouterService {
         logger.trace("initRouters OK");
     }
 
+    public MyServiceResponse getAll(){
+        return new MyServiceResponse(routerMapper.getAll());
+    }
+
     public Router getById(Integer id){
 
         return routerMapper.getById(id);
     }
 
-    public List<Router> getAll(){
-        return routerMapper.getAll();
-    }
+
 
     public Integer insert(Router router){
         return routerMapper.insert(router);

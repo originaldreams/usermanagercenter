@@ -1,10 +1,7 @@
 package com.originaldreams.usermanagercenter.controller;
 
 import com.originaldreams.usermanagercenter.common.MyResponse;
-import com.originaldreams.usermanagercenter.service.RoleRoutersService;
-import com.originaldreams.usermanagercenter.service.RoleService;
-import com.originaldreams.usermanagercenter.service.RouterService;
-import com.originaldreams.usermanagercenter.service.UserRolesService;
+import com.originaldreams.usermanagercenter.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +17,11 @@ public class PermissionController {
     private Logger logger = LoggerFactory.getLogger(PermissionController.class);
 
     @Resource
+    private UserService userService;
+    @Resource
     private RoleService roleService;
     @Resource
     private RouterService routerService;
-    @Resource
-    private RoleRoutersService roleRoutersService;
-    @Resource
-    private UserRolesService userRolesService;
 
     @RequestMapping(value = "/getAllRoles" , method = RequestMethod.GET)
     public ResponseEntity getAllRoles(){
@@ -38,7 +33,7 @@ public class PermissionController {
         if(userId == null || userId < 0){
             return MyResponse.badRequest("请求参数不合法");
         }
-        return MyResponse.ok(userRolesService.getRolesByUserId(userId));
+        return MyResponse.ok(roleService.getRolesByUserId(userId));
     }
 
     @RequestMapping(value = "/getUsersByRoleId" , method = RequestMethod.GET)
@@ -46,16 +41,16 @@ public class PermissionController {
         if(roleId == null || roleId < 0){
             return MyResponse.badRequest("请求参数不合法");
         }
-        return MyResponse.ok(userRolesService.getUsersByRoleId(roleId));
+        return MyResponse.ok(userService.getUsersByRoleId(roleId));
     }
-//
-//    @RequestMapping(value = "/getAllRouters" , method = RequestMethod.GET)
-//    public ResponseEntity getAllRouters(){
-//
-//    }
-//
-//    @RequestMapping(value = "/getRoutersByRoleName" , method = RequestMethod.GET)
-//    public ResponseEntity getRoutersByRoleName(){
+
+    @RequestMapping(value = "/getAllRouters" , method = RequestMethod.GET)
+    public ResponseEntity getAllRouters(){
+        return MyResponse.ok(routerService.getAll());
+    }
+
+//    @RequestMapping(value = "/getRoutersByRoleId" , method = RequestMethod.GET)
+//    public ResponseEntity getRoutersByRoleId(){
 //
 //    }
 //

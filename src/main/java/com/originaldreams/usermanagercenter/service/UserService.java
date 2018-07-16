@@ -136,6 +136,14 @@ public class UserService {
         }
     }
 
+    /**
+     * 根据角色查找用户
+     * @param roleId
+     * @return
+     */
+    public MyServiceResponse getUsersByRoleId(int roleId){
+        return new MyServiceResponse(userMapper.getUsersByRoleId(roleId));
+    }
 
     public User getById(Integer id){
 

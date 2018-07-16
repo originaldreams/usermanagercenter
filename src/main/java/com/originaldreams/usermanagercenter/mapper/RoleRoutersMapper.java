@@ -12,20 +12,15 @@ import java.util.List;
 public interface RoleRoutersMapper {
     String tableName = "role_routers";
 
+     @Select("SELECT  roleId, routerId, createTime FROM " + tableName + " WHERE roleId = #{roleId}")
+     List<RoleRouters> getByRoleId(Integer roleId);
 
-     @Select("SELECT id, roleId, routerId, createTime FROM " + tableName + " WHERE id = #{id}")
-     RoleRouters getById(Integer Id);
+     @Select("SELECT  roleId, routerId, createTime FROM " + tableName + " WHERE routerId = #{routerId}")
+     List<RoleRouters> getByRouterId(Integer routerId);
 
-     @Select("SELECT id, roleId, routerId, createTime FROM " + tableName)
+     @Select("SELECT  roleId, routerId, createTime FROM " + tableName)
      List<RoleRouters> getAll();
 
-     @Insert("INSERT INTO " + tableName + "(id, roleId, routerId, createTime) VALUES (#{id}, #{roleId}, #{routerId}, #{createTime})")
+     @Insert("INSERT INTO " + tableName + "(roleId, routerId, createTime) VALUES (#{roleId}, #{routerId}, #{createTime})")
      Integer insert(RoleRouters roleRouters);
-
-     @Delete("DELETE FROM " + tableName + " WHERE id = #{id}")
-     Integer deleteById(Integer id);
-     @Update("UPDATE " + tableName + " SET roleId=#{roleId}, routerId=#{routerId}, createTime=#{createTime} WHERE id = #{id}")
-     Integer update(RoleRouters roleRouters);
-
-
 }

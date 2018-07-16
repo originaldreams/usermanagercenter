@@ -4,10 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class UserRoles {
-    /**
-    * ID
-    */
-     private Integer id;
+
     /**
     * 用户ID
     */
@@ -20,12 +17,6 @@ public class UserRoles {
     * 创建时间
     */
      private Date createTime = new Date();
-     public Integer getId(){
-           return this.id;
-     }
-     public void setId(Integer id){
-           this.id = id;
-     }
      public Integer getUserId(){
            return this.userId;
      }
@@ -49,7 +40,7 @@ public class UserRoles {
 @Override
     public String toString() {
         return "UserRoles{" +
-            "  id:" + id + "  userId:" + userId + "  roleId:" + roleId + "  createTime:" + createTime + 
+                "  userId:" + userId + "  roleId:" + roleId + "  createTime:" + createTime +
         "}";
     }
   }

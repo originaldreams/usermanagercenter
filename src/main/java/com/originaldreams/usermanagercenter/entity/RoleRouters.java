@@ -5,10 +5,6 @@ import java.util.List;
 
 public class RoleRouters {
     /**
-    * ID
-    */
-     private Integer id;
-    /**
     * 角色ID
     */
      private Integer roleId;
@@ -20,12 +16,6 @@ public class RoleRouters {
     * 创建时间
     */
      private Date createTime = new Date();
-     public Integer getId(){
-           return this.id;
-     }
-     public void setId(Integer id){
-           this.id = id;
-     }
      public Integer getRoleId(){
            return this.roleId;
      }
@@ -49,7 +39,7 @@ public class RoleRouters {
 @Override
     public String toString() {
         return "RoleRouters{" +
-            "  id:" + id + "  roleId:" + roleId + "  routerId:" + routerId + "  createTime:" + createTime + 
+             "  roleId:" + roleId + "  routerId:" + routerId + "  createTime:" + createTime +
         "}";
     }
   }

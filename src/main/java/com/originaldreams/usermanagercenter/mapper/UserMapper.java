@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     String tableName = "user";
-
+    String userRoles = "user_roles";
 
      @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE id = #{id} AND isDelete = 0")
      User getById(Integer Id);
@@ -36,4 +36,18 @@ public interface UserMapper {
 
      @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE email = #{email} AND isDelete = #{isDelete}")
      User getByEmail(String email,int isDelete);
+
+     @Select("SELECT "+ tableName +".id, "
+             + tableName +".name, "
+             + tableName +".description, "
+             + tableName +".createTime, "
+             + tableName +".address, "
+             + tableName +".signature, "
+             + tableName +".userPortrait, "
+             + tableName +".email, "
+             + tableName +".phone, "
+             + tableName +".createTime, "
+             + tableName +".mask FROM " + userRoles + " , "+ tableName
+             + " WHERE " + userRoles +".userId =" + tableName + ".id " + userRoles + ".roleId = #{roleId}" )
+     List<User> getUsersByRoleId(Integer roleId);
 }
