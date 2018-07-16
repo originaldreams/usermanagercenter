@@ -1,7 +1,7 @@
 package com.originaldreams.usermanagercenter.controller;
 
-import com.originaldreams.usermanagercenter.entity.User;
-import com.originaldreams.usermanagercenter.service.UserService;
+import com.originaldreams.usermanagercenter.entity.Role;
+import com.originaldreams.usermanagercenter.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -14,40 +14,40 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+@RequestMapping("/role")
+public class RoleController {
+    private Logger logger = LoggerFactory.getLogger(RoleController.class);
 
     @Resource
-    private UserService userService;
+    private RoleService roleService;
 
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     ResponseEntity getById(Integer id){
-        User result = userService.getById(id);
+        Role result = roleService.getById(id);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
     }
 
     @RequestMapping(value = "/getAll",method = RequestMethod.GET)
     ResponseEntity getAll(){
-        List<User> result = userService.getAll();
+        List<Role> result = roleService.getAll();
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
     }
 
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    ResponseEntity insert(User user){
-        Integer result = userService.insert(user);
+    ResponseEntity insert(Role role){
+        Integer result = roleService.insert(role);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
     }
 
     @RequestMapping(value = "/deleteById",method = RequestMethod.DELETE)
     ResponseEntity deleteById(Integer id){
-        Integer result = userService.deleteById(id);
+        Integer result = roleService.deleteById(id);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
-    ResponseEntity update(User user){
-        Integer result = userService.update(user);
+    ResponseEntity update(Role role){
+        Integer result = roleService.update(role);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
     }
 

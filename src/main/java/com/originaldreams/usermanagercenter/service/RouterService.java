@@ -1,5 +1,6 @@
 package com.originaldreams.usermanagercenter.service;
 
+import com.originaldreams.usermanagercenter.cache.MyCache;
 import com.originaldreams.usermanagercenter.common.MyClientRouter;
 import com.originaldreams.usermanagercenter.common.MyRouterObject;
 import com.originaldreams.usermanagercenter.entity.Router;
@@ -20,11 +21,17 @@ public class RouterService {
 
     private Logger logger = LoggerFactory.getLogger(RouterService.class);
 
+    /**
+     * 初始化路由
+     *
+     */
     public void initRouters(){
         List<MyRouterObject> list = new ArrayList(MyClientRouter.routerMap.values());
         routerMapper.deleteAll();
         for(MyRouterObject routerObject :list){
             Router router = Router.parseRouter(routerObject);
+
+            MyCache.routerMap.put(router.getId(),router);
             routerMapper.insert(router);
         }
         logger.trace("initRouters OK");

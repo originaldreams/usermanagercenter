@@ -1,10 +1,10 @@
 package com.originaldreams.usermanagercenter.common;
 
 /**
- * 规定统一的消息返回格式
+ * 规定Service统一的消息返回格式
  * 在Controller中统一返回ResponseEntity格式的数据，在ResponseEntity的body里，必须使用MyResponseObject格式的数据
  */
-public class MyResponseObject {
+public class MyServiceResponse {
 
     private int success ;
     private Object data ;
@@ -13,21 +13,21 @@ public class MyResponseObject {
     public final static int success_code_success = 0;
     public final static int success_code_failed = 1;
 
-    public MyResponseObject() {
+    public MyServiceResponse() {
         this.success = success_code_success;
     }
 
-    public MyResponseObject(Object data) {
+    public MyServiceResponse(Object data) {
         this.success = success_code_success;
         this.data = data;
     }
 
-    public MyResponseObject(int success, String message) {
+    public MyServiceResponse(int success, String message) {
         this.success = success;
         this.message = message;
     }
 
-    public MyResponseObject(int success, Object data, String message) {
+    public MyServiceResponse(int success, Object data, String message) {
         this.success = success;
         this.data = data;
         this.message = message;

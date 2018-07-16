@@ -1,7 +1,7 @@
 package com.originaldreams.usermanagercenter.service;
 
 import com.originaldreams.usermanagercenter.common.MyMD5Utils;
-import com.originaldreams.usermanagercenter.common.MyResponseObject;
+import com.originaldreams.usermanagercenter.common.MyServiceResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ public class UserService {
      * @param user
      * @return
      */
-    public MyResponseObject logon(User user)  {
+    public MyServiceResponse logon(User user)  {
         User checker = null;
         boolean checkPassword = false;
-        MyResponseObject responseObject = new MyResponseObject();
+        MyServiceResponse responseObject = new MyServiceResponse();
         if(user.getPassword() != null){   //使用密码登录
             if(user.getUserName() != null){   //用户名密码组合
                 checker = userMapper.getByUserName(user.getUserName(),0);
@@ -38,7 +38,7 @@ public class UserService {
                 if(checker != null && checker.permitUserNameLogon()){
                     checkPassword = true;
                 }else{
-                    responseObject.setSuccess(MyResponseObject.success_code_failed);
+                    responseObject.setSuccess(MyServiceResponse.success_code_failed);
                     responseObject.setMessage("不支持用户名登录");
                 }
             }else if(user.getPhone() != null){    //手机号密码组合
@@ -48,7 +48,7 @@ public class UserService {
                     checkPassword = true;
 
                 }else{
-                    responseObject.setSuccess(MyResponseObject.success_code_failed);
+                    responseObject.setSuccess(MyServiceResponse.success_code_failed);
                     responseObject.setMessage("不支持手机号登录");
                 }
             }else if(user.getEmail() != null){    //邮箱密码组合
@@ -57,7 +57,7 @@ public class UserService {
                 if(checker != null && checker.permitEmailLogon()){
                     checkPassword = true;
                 }else{
-                    responseObject.setSuccess(MyResponseObject.success_code_failed);
+                    responseObject.setSuccess(MyServiceResponse.success_code_failed);
                     responseObject.setMessage("不支持邮箱登录");
                 }
             }
@@ -66,12 +66,12 @@ public class UserService {
                 if(checkPassword && MyMD5Utils.checkqual(user.getPassword(),checker.getPassword())){
                     responseObject.setData(checker.getId());
                 }else {
-                    responseObject.setSuccess(MyResponseObject.success_code_failed);
+                    responseObject.setSuccess(MyServiceResponse.success_code_failed);
                     responseObject.setMessage("用户名密码错误");
                 }
             }catch (Exception e){
                 logger.error("校验密码异常 ",e);
-                responseObject.setSuccess(MyResponseObject.success_code_failed);
+                responseObject.setSuccess(MyServiceResponse.success_code_failed);
                 responseObject.setMessage("用户名密码错误");
             }
 
@@ -89,10 +89,10 @@ public class UserService {
      * @param user
      * @return
      */
-    public MyResponseObject register(User user){
+    public MyServiceResponse register(User user){
         User checker;
-        MyResponseObject responseObject = new MyResponseObject();
-        responseObject.setSuccess(MyResponseObject.success_code_failed);
+        MyServiceResponse responseObject = new MyServiceResponse();
+        responseObject.setSuccess(MyServiceResponse.success_code_failed);
         if(user.getPhone() == null && user.getEmail() == null){
             responseObject.setMessage("参数异常");
             return responseObject;
@@ -126,7 +126,7 @@ public class UserService {
         try {
             user.setPassword(MyMD5Utils.EncoderByMd5(user.getPassword()));
             userMapper.insert(user);
-            responseObject.setSuccess(MyResponseObject.success_code_success);
+            responseObject.setSuccess(MyServiceResponse.success_code_success);
             responseObject.setData(user.getId());
             return responseObject;
         }catch (Exception e){
