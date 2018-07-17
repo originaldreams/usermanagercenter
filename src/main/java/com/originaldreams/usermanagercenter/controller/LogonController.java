@@ -43,6 +43,7 @@ public class LogonController {
             user.setPhone(phone);
             user.setWxId(wxId);
             user.setEmail(email);
+            logger.info("user logon:" + user);
             user.setPassword(password);
             return MyResponse.ok(userService.logon(user));
 
