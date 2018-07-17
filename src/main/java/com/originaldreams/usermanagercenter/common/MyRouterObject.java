@@ -9,18 +9,28 @@ public class MyRouterObject {
     private Long firstMask;
     private Long secondMask;
 
-    public MyRouterObject(Integer id, String methodName, String routerUrl, Long firstMask, Long secondMask) {
+    /**
+     * @param id
+     * @param routerUrl 格式：http://UserManagerCenter/permission/getAllRoles"
+     * @param firstMask
+     * @param secondMask
+     */
+    public MyRouterObject(Integer id, String routerUrl, Long firstMask, Long secondMask){
         this.id = id;
-        this.methodName = methodName;
         this.routerUrl = routerUrl;
         this.firstMask = firstMask;
         this.secondMask = secondMask;
         /*
-        这里可能产生数组越界抛异常，当抛异常时，说明methodName不合法，需要修改
+        这里可能产生数组越界抛异常，当抛异常时，说明routerUrl格式不正确，需要修改
          */
-        String[] array = methodName.split("_");
-        this.serviceName = array[0];
-        this.controllerName = array[1];
+        try {
+            String[] array = routerUrl.split("/");
+            this.serviceName = array[2];
+            this.controllerName = array[3];
+            this.methodName = array[4];
+        }catch (ArrayIndexOutOfBoundsException e){
+            throw new ArrayIndexOutOfBoundsException("routerUrl格式不正确");
+        }
     }
 
     public Integer getId() {
