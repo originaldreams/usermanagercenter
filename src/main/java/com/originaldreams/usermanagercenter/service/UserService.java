@@ -33,7 +33,7 @@ public class UserService {
         MyServiceResponse responseObject = new MyServiceResponse();
         if(user.getPassword() != null){   //使用密码登录
             if(user.getUserName() != null){   //用户名密码组合
-                checker = userMapper.getByUserName(user.getUserName(),0);
+                checker = userMapper.getByUserName(user);
                 //判断是否允许用户使用用户名登录
                 if(checker != null && checker.permitUserNameLogon()){
                     checkPassword = true;
@@ -42,7 +42,7 @@ public class UserService {
                     responseObject.setMessage("不支持用户名登录");
                 }
             }else if(user.getPhone() != null){    //手机号密码组合
-                checker = userMapper.getByPhone(user.getPhone(),0);
+                checker = userMapper.getByPhone(user);
                 //判断是否允许用户使用手机号登录
                 if(checker != null && checker.permitPhoneLogon()){
                     checkPassword = true;
@@ -52,7 +52,7 @@ public class UserService {
                     responseObject.setMessage("不支持手机号登录");
                 }
             }else if(user.getEmail() != null){    //邮箱密码组合
-                checker = userMapper.getByEmail(user.getEmail(),0);
+                checker = userMapper.getByEmail(user);
                 //判断是否允许用户使用邮箱登录
                 if(checker != null && checker.permitEmailLogon()){
                     checkPassword = true;
@@ -101,7 +101,7 @@ public class UserService {
             return responseObject;
         }
         if(user.getUserName() != null){
-            checker = userMapper.getByUserName(user.getUserName(),0);
+            checker = userMapper.getByUserName(user);
             //检查用户名是否已存在
             if(checker != null ){
                 responseObject.setMessage("用户名已注册");
@@ -109,14 +109,14 @@ public class UserService {
             }
 
         }else if(user.getPhone() != null){    //手机号密码组合
-            checker = userMapper.getByPhone(user.getPhone(),0);
+            checker = userMapper.getByPhone(user);
             //检查手机号是否已存在
             if(checker != null){
                 responseObject.setMessage("手机号已注册");
                 return responseObject;
             }
         }else if(user.getEmail() != null){    //邮箱密码组合
-            checker = userMapper.getByEmail(user.getEmail(),0);
+            checker = userMapper.getByEmail(user);
             //检查邮箱是否已存在
             if(checker != null){
                 responseObject.setMessage("邮箱已注册");

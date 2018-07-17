@@ -55,7 +55,7 @@ public class User {
     /**
      * 是否已删除 0:未删除 1:已删除
      */
-    private int isDelete;
+     private int isDelete = 0;
      public Integer getId(){
            return this.id;
      }

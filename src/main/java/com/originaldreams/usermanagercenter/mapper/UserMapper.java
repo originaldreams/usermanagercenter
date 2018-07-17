@@ -26,16 +26,16 @@ public interface UserMapper {
      Integer update(User user);
 
      @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE userName = #{userName} AND isDelete = #{isDelete}")
-     User getByUserName(String userName,int isDelete);
+     User getByUserName(User user);
 
      @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE phone = #{phone} AND isDelete = #{isDelete}")
-     User getByPhone(String phone,int isDelete);
+     User getByPhone(User user);
 
      @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE wxId = #{wxId} AND isDelete = #{isDelete}")
-     User getByWXId(String wxId,int isDelete);
+     User getByWXId(User user);
 
      @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " WHERE email = #{email} AND isDelete = #{isDelete}")
-     User getByEmail(String email,int isDelete);
+     User getByEmail(User user);
 
      @Select("SELECT "+ tableName +".id, "
              + tableName +".name, "
