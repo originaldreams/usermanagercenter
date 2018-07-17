@@ -2,6 +2,7 @@ package com.originaldreams.usermanagercenter.mapper;
 
 import com.originaldreams.usermanagercenter.entity.Role;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public interface RoleMapper {
 
      @Select("SELECT id, name, description, createTime FROM " + tableName)
      List<Role> getAll();
+
+     @Select("SELECT id, name, description, createTime FROM " + tableName + " WHERE name = #{name}")
+     Role getByName(Role role);
 
      @Select("SELECT "+ tableName +".id, "
              + tableName +".name, "

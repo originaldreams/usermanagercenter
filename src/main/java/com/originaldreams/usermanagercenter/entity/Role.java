@@ -20,6 +20,10 @@ public class Role {
     * 角色描述
     */
      private Date createTime;
+     public Role(){
+
+     }
+
      public Role(String name,String description){
          this.name = name;
          this.description = description;
