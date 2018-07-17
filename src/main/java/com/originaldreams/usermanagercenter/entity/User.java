@@ -51,7 +51,7 @@ public class User {
     /**
     * 掩码值，用来表示一系列开关（如：是否开启用户名登录、是否已删除、是否开启邮箱登录等）
     */
-     private Long mask;
+     private long mask = 0l;
     /**
      * 是否已删除 0:未删除 1:已删除
      */
@@ -101,7 +101,7 @@ public class User {
      public Long getMask(){
            return this.mask;
      }
-     public void setMask(Long mask){
+     public void setMask(long mask){
            this.mask = mask;
      }
 
@@ -113,16 +113,25 @@ public class User {
         this.isDelete = isDelete;
     }
 
-    public boolean permitUserNameLogon(){
+    public void setUserNameLogon(){
+         this.mask = this.mask | permitUserNameLogon;
+    }
+    public void setPhoneLogon(){
+         this.mask = this.mask | permitPhoneLogon;
+    }
+    public void setEmailLogon(){
+        this.mask = this.mask | permitEmailLogon;
+    }
+    public boolean isPermitUserNameLogon(){
         return (mask & permitUserNameLogon ) == permitUserNameLogon;
      }
-     public boolean permitPhoneLogon(){
+     public boolean isPermitPhoneLogon(){
          return (mask & permitPhoneLogon ) == permitPhoneLogon;
      }
-     public boolean permitEmailLogon(){
+     public boolean isPermitEmailLogon(){
          return (mask & permitEmailLogon ) == permitEmailLogon;
      }
-     public boolean permitWXIdLogon(){
+     public boolean isPermitWXIdLogon(){
          return (mask & permitWXIdLogon ) == permitWXIdLogon;
      }
 

@@ -35,7 +35,7 @@ public class UserService {
             if(user.getUserName() != null){   //用户名密码组合
                 checker = userMapper.getByUserName(user);
                 //判断是否允许用户使用用户名登录
-                if(checker != null && checker.permitUserNameLogon()){
+                if(checker != null && checker.isPermitUserNameLogon()){
                     checkPassword = true;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.success_code_failed);
@@ -44,7 +44,7 @@ public class UserService {
             }else if(user.getPhone() != null){    //手机号密码组合
                 checker = userMapper.getByPhone(user);
                 //判断是否允许用户使用手机号登录
-                if(checker != null && checker.permitPhoneLogon()){
+                if(checker != null && checker.isPermitPhoneLogon()){
                     checkPassword = true;
 
                 }else{
@@ -54,7 +54,7 @@ public class UserService {
             }else if(user.getEmail() != null){    //邮箱密码组合
                 checker = userMapper.getByEmail(user);
                 //判断是否允许用户使用邮箱登录
-                if(checker != null && checker.permitEmailLogon()){
+                if(checker != null && checker.isPermitEmailLogon()){
                     checkPassword = true;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.success_code_failed);

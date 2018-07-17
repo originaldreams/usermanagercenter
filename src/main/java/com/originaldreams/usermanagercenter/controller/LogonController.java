@@ -49,6 +49,14 @@ public class LogonController {
         }
     }
 
+    /**
+     * 注册接口
+     * @param userName  用户名（可用于登录） 选填
+     * @param phone     手机号
+     * @param email     邮箱  手机号和邮箱至少要填其中一项
+     * @param password  密码  必填
+     * @return
+     */
     @RequestMapping(value = "register" , method = RequestMethod.POST)
     public ResponseEntity register(String userName,String phone,String email,String password){
         if(userName == null  && phone == null && email == null){
@@ -58,9 +66,19 @@ public class LogonController {
             return MyResponse.badRequest("密码为空");
         }
         User user = new User();
-        user.setUserName(userName);
-        user.setPhone(phone);
-        user.setEmail(email);
+        if(userName != null){
+            user.setUserName(userName);
+            user.setUserNameLogon();
+        }
+        if(phone != null){
+            user.setPhone(phone);
+            user.setPhoneLogon();
+        }
+        if(email != null){
+            user.setEmail(email);
+            user.setEmailLogon();
+        }
+        logger.info("user register:" + user);
         user.setPassword(password);
         return MyResponse.ok(userService.register(user));
     }

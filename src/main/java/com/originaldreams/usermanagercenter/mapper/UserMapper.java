@@ -16,7 +16,7 @@ public interface UserMapper {
      @Select("SELECT id, userName, phone, wxId, email, password, createTime, mask,isDelete FROM " + tableName + " isDelete = 0 ")
      List<User> getAll();
 
-     @Insert("INSERT INTO " + tableName + "(userName, phone, wxId, email, password, createTime, mask) VALUES (#{userName}, #{phone}, #{wxId}, #{email}, #{password}, #{createTime}, #{mask})")
+     @Insert("INSERT INTO " + tableName + "(userName, phone, wxId, email, password, createTime, mask,isDelete) VALUES (#{userName}, #{phone}, #{wxId}, #{email}, #{password}, #{createTime}, #{mask},#{isDelete})")
      @Options(useGeneratedKeys = true)
      Integer insert(User user);
 
