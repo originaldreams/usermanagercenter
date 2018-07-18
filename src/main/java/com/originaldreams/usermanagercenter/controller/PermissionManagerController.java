@@ -89,6 +89,13 @@ public class PermissionManagerController {
         return MyResponse.ok(roleService.deleteById(id));
     }
 
+    /**
+     * 修改角色
+     * @param id    角色Id notNull
+     * @param name  新的角色名 notNull
+     * @param description 新的角色描述 null
+     * @return
+     */
     @RequestMapping(value = "updateRole" ,method = RequestMethod.PUT)
     public ResponseEntity updateRole(Integer id,String name,String description){
         if(id == null || name == null){
