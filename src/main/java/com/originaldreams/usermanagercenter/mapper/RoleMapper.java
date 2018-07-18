@@ -2,7 +2,6 @@ package com.originaldreams.usermanagercenter.mapper;
 
 import com.originaldreams.usermanagercenter.entity.Role;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 

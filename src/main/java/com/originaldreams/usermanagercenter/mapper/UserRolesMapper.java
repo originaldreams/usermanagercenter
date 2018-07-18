@@ -26,7 +26,8 @@ public interface UserRolesMapper {
      @Insert("INSERT INTO " + tableName + "(userId, roleId, createTime) VALUES (#{userId}, #{roleId}, #{createTime})")
      Integer insert(UserRoles userRoles);
 
-
+     @Delete("DELETE FROM " + tableName + " WHERE roleId = #{roleId}")
+     Integer deleteByRoleId(Integer roleId);
 
 
 

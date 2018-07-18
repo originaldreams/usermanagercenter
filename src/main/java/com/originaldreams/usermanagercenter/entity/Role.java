@@ -24,6 +24,12 @@ public class Role {
 
      }
 
+     public Role(Integer id,String name){
+         this.id = id;
+         this.name = name;
+         this.createTime = new Date();
+     }
+
      public Role(String name,String description){
          this.name = name;
          this.description = description;

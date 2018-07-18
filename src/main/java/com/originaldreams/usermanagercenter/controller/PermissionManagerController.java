@@ -29,12 +29,6 @@ public class PermissionManagerController {
     @Resource
     private RouterService routerService;
 
-    /*
-     * 1.添加角色
-     * 2.添加用户角色
-     * 3.添加角色权限
-     */
-
     /**
      * 添加角色
      * @param name
@@ -78,6 +72,31 @@ public class PermissionManagerController {
         }
         RoleRouters roleRouters = new RoleRouters(roleId,routerId);
         return MyResponse.ok(routerService.addRouterForRole(roleRouters));
+    }
+
+    /**
+     * 删除角色
+     * 这个接口要慎重调用
+     * 删除角色的同时，会删除所有用户和权限中与该角色相关的记录
+     * @param id    角色id
+     * @return
+     */
+    @RequestMapping(value = "deleteRoleById" ,method = RequestMethod.DELETE)
+    public ResponseEntity deleteRoleById(Integer id){
+        if(id == null){
+            return MyResponse.badRequest("参数异常");
+        }
+        return MyResponse.ok(roleService.deleteById(id));
+    }
+
+    @RequestMapping(value = "updateRole" ,method = RequestMethod.PUT)
+    public ResponseEntity updateRole(Integer id,String name,String description){
+        if(id == null || name == null){
+            return MyResponse.badRequest("角色名不能为空");
+        }
+        Role role = new Role(id,name);
+        if(description != null) role.setDescription(description);
+        return MyResponse.ok(roleService.update(role));
     }
 
 
