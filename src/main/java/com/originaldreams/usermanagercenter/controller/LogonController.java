@@ -1,6 +1,8 @@
 package com.originaldreams.usermanagercenter.controller;
 
 import com.originaldreams.usermanagercenter.common.MyResponse;
+import com.originaldreams.usermanagercenter.common.MyServiceResponse;
+import com.originaldreams.usermanagercenter.common.SessionUtils;
 import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.service.UserService;
 import org.slf4j.Logger;
@@ -11,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-
 /**
  * 登录控制
  * 负责用户的登录和注册
  */
 @RestController
-@RequestMapping("/logon")
 public class LogonController {
     private Logger logger = LoggerFactory.getLogger(LogonController.class);
 
@@ -45,8 +45,9 @@ public class LogonController {
             user.setEmail(email);
             logger.info("user logon:" + user);
             user.setPassword(password);
-            return MyResponse.ok(userService.logon(user));
+            MyServiceResponse response = userService.logon(user);
 
+            return MyResponse.ok(response);
         }
     }
 
@@ -58,7 +59,7 @@ public class LogonController {
      * @param password  密码  必填
      * @return
      */
-    @RequestMapping(value = "register" , method = RequestMethod.POST)
+    @RequestMapping(value = "/register" , method = RequestMethod.POST)
     public ResponseEntity register(String userName,String phone,String email,String password){
         if(userName == null  && phone == null && email == null){
             return MyResponse.badRequest("请求参数异常");
