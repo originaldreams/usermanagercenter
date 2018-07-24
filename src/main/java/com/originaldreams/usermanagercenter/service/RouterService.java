@@ -1,9 +1,9 @@
 package com.originaldreams.usermanagercenter.service;
 
+import com.originaldreams.common.MyClientRouter;
+import com.originaldreams.common.MyRouterObject;
+import com.originaldreams.common.MyServiceResponse;
 import com.originaldreams.usermanagercenter.cache.MyCache;
-import com.originaldreams.usermanagercenter.common.MyClientRouter;
-import com.originaldreams.usermanagercenter.common.MyRouterObject;
-import com.originaldreams.usermanagercenter.common.MyServiceResponse;
 import com.originaldreams.usermanagercenter.entity.RoleRouters;
 import com.originaldreams.usermanagercenter.entity.Router;
 import com.originaldreams.usermanagercenter.mapper.RoleRoutersMapper;

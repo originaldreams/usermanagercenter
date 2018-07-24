@@ -1,6 +1,6 @@
 package com.originaldreams.usermanagercenter.service;
 
-import com.originaldreams.usermanagercenter.common.MyServiceResponse;
+import com.originaldreams.common.MyServiceResponse;
 import com.originaldreams.usermanagercenter.entity.UserRoles;
 import com.originaldreams.usermanagercenter.mapper.RoleRoutersMapper;
 import com.originaldreams.usermanagercenter.mapper.UserRolesMapper;

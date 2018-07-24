@@ -1,8 +1,7 @@
 package com.originaldreams.usermanagercenter.controller;
 
-import com.originaldreams.usermanagercenter.common.MyResponse;
-import com.originaldreams.usermanagercenter.common.MyServiceResponse;
-import com.originaldreams.usermanagercenter.common.SessionUtils;
+import com.originaldreams.common.MyResponse;
+import com.originaldreams.common.MyServiceResponse;
 import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.service.UserService;
 import org.slf4j.Logger;

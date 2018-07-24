@@ -1,6 +1,6 @@
 package com.originaldreams.usermanagercenter.controller;
 
-import com.originaldreams.usermanagercenter.common.MyResponse;
+import com.originaldreams.common.MyResponse;
 import com.originaldreams.usermanagercenter.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
