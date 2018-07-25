@@ -1,6 +1,6 @@
 package com.originaldreams.usermanagercenter.controller;
 
-import com.originaldreams.common.MyResponse;
+import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.usermanagercenter.entity.Role;
 import com.originaldreams.usermanagercenter.entity.RoleRouters;
 import com.originaldreams.usermanagercenter.entity.UserRoles;

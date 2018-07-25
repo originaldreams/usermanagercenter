@@ -1,7 +1,7 @@
 package com.originaldreams.usermanagercenter.entity;
 
 
-import com.originaldreams.common.MyRouterObject;
+import com.originaldreams.common.router.MyRouterObject;
 
 public class Router {
      private Integer id;

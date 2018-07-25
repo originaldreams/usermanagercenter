@@ -1,6 +1,6 @@
 package com.originaldreams.usermanagercenter.controller;
 
-import com.originaldreams.common.MyResponse;
+import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.usermanagercenter.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- *  用户权限查询控制
+ *  用户权限访问控制
  *  提供用户权限查询功能
  */
 @RestController

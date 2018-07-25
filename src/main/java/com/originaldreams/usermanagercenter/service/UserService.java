@@ -1,7 +1,7 @@
 package com.originaldreams.usermanagercenter.service;
 
-import com.originaldreams.common.MyMD5Utils;
-import com.originaldreams.common.MyServiceResponse;
+import com.originaldreams.common.encryption.MyMD5Utils;
+import com.originaldreams.common.response.MyServiceResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
