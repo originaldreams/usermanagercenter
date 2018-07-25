@@ -52,6 +52,17 @@ public class RouterService {
     public MyServiceResponse addRouterForRole(RoleRouters roleRouters){
         return new MyServiceResponse(roleRoutersMapper.insert(roleRouters));
     }
+
+    public MyServiceResponse getRouterIdsByUserId(Integer userId){
+        List<RoleRouters> list = roleRoutersMapper.getByUserId(userId);
+        List<Integer> result = new ArrayList<>();
+        for(RoleRouters roleRouters : list){
+            result.add(roleRouters.getRouterId());
+        }
+        return new MyServiceResponse(result);
+    }
+
+
     public Router getById(Integer id){
 
         return routerMapper.getById(id);

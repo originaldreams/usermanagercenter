@@ -23,16 +23,16 @@ public interface RoleMapper {
              + tableName +".name, "
              + tableName +".description, "
              + tableName +".createTime "
-             +" FROM " + userRoles + " , "+ tableName
-             + " WHERE " + userRoles +".roleId =" + tableName + ".id " + userRoles + ".userId = #{userId}" )
+             +" FROM " + userRoles + " a, "+ tableName + " b "
+             + " WHERE a.roleId = b.id AND a.userId = #{userId}" )
      List<Role> getRolesByUserId(Integer userId);
 
      @Select("SELECT "+ tableName +".id, "
          + tableName +".name, "
          + tableName +".description, "
          + tableName +".createTime "
-         +" FROM " + roleRouters + " , "+ tableName
-         + " WHERE " + roleRouters +".roleId =" + tableName + ".id " + roleRouters + ".routerId = #{routerId}" )
+         +" FROM " + roleRouters + " a, "+ tableName + " b "
+         + " WHERE a.roleId = b.id AND a.routerId = #{routerId}" )
      List<Role> getRolesByRouterId(Integer routerId);
 
      @Insert("INSERT INTO " + tableName + "(name, description, createTime) VALUES (#{name}, #{description}, #{createTime})")

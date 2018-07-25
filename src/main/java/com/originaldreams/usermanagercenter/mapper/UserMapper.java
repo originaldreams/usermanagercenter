@@ -47,7 +47,7 @@ public interface UserMapper {
              + tableName +".email, "
              + tableName +".phone, "
              + tableName +".createTime, "
-             + tableName +".mask FROM " + userRoles + " , "+ tableName
-             + " WHERE " + userRoles +".userId =" + tableName + ".id " + userRoles + ".roleId = #{roleId}" )
+             + tableName +".mask FROM " + userRoles + " a, "+ tableName + " b "
+             + " WHERE a.userId =b.id  AND a.roleId = #{roleId}" )
      List<User> getUsersByRoleId(Integer roleId);
 }

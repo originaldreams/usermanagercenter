@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper
 public interface RoleRoutersMapper {
     String tableName = "role_routers";
+    String userRoles = "user_roles";
 
     @Select("SELECT  roleId, routerId, createTime FROM " + tableName + " WHERE roleId = #{roleId}")
     List<RoleRouters> getByRoleId(Integer roleId);
@@ -26,4 +27,7 @@ public interface RoleRoutersMapper {
 
     @Delete("DELETE FROM " + tableName + " WHERE roleId = #{roleId}")
     Integer deleteByroleId(Integer roleId);
+
+    @Select({"SELECT a.roleId,a.routerId FROM " + tableName + " a," + userRoles + " b WHERE a.roleId = b.roleId AND b.userId = #{userId}"})
+    List<RoleRouters> getByUserId(Integer userId);
 }

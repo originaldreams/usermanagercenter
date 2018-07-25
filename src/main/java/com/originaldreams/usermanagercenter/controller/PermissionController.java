@@ -96,4 +96,17 @@ public class PermissionController {
         }
         return MyResponse.ok(routerService.getRoutersByRoleId(roleId));
     }
+
+    /**
+     * 查询某个用户的所有权限
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/getRouterIdsByUserId" , method = RequestMethod.GET)
+    public ResponseEntity getRoutersByUserId(Integer userId){
+        if(userId == null){
+            return MyResponse.badRequest("请求参数不合法");
+        }
+        return MyResponse.ok(routerService.getRouterIdsByUserId(userId));
+    }
 }
