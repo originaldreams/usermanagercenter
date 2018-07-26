@@ -62,13 +62,22 @@ public class UserService {
                 }
             }
             try{
-                //校验密码
-                if(checkPassword && MyMD5Utils.checkqual(user.getPassword(),checker.getPassword())){
-                    responseObject.setData(checker.getId());
+                /*
+                 *  经过上面的检查，在这里
+                 *  如果需要校验密码，则进入校验密码环节，
+                 *  否则，说明前面的检查环节有问题，直接返回检查环节封装好的应答
+                 */
+                if(checkPassword){
+                    if(MyMD5Utils.checkqual(user.getPassword(),checker.getPassword())){
+                        responseObject.setData(checker.getId());
+                    }else {
+                        responseObject.setSuccess(MyServiceResponse.success_code_failed);
+                        responseObject.setMessage("用户名密码错误");
+                    }
                 }else {
-                    responseObject.setSuccess(MyServiceResponse.success_code_failed);
-                    responseObject.setMessage("用户名密码错误");
+                    return responseObject;
                 }
+
             }catch (Exception e){
                 logger.error("校验密码异常 ",e);
                 responseObject.setSuccess(MyServiceResponse.success_code_failed);
