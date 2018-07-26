@@ -38,7 +38,7 @@ public class PermissionManagerController {
     @RequestMapping(value = "addRole" , method = RequestMethod.POST)
     public ResponseEntity addRole(String name,String description){
         if(name == null || description == null){
-            return MyResponse.badRequest("角色名或描述不能为空");
+            return MyResponse.badRequest();
         }
         Role role = new Role(name,description);
         return MyResponse.ok(roleService.insert(role));
@@ -53,7 +53,7 @@ public class PermissionManagerController {
     @RequestMapping(value = "addRoleForUser" , method = RequestMethod.POST)
     public ResponseEntity addRoleForUser(Integer userId,Integer roleId){
         if(userId == null || roleId == null){
-            return MyResponse.badRequest("参数异常");
+            return MyResponse.badRequest();
         }
         UserRoles userRoles = new UserRoles(userId, roleId);
         return MyResponse.ok(roleService.addRoleForUser(userRoles));
@@ -68,7 +68,7 @@ public class PermissionManagerController {
     @RequestMapping(value = "addRouterForRole" , method = RequestMethod.POST)
     public ResponseEntity addRouterForRole(Integer roleId,Integer routerId){
         if(roleId == null || routerId == null){
-            return MyResponse.badRequest("参数异常");
+            return MyResponse.badRequest();
         }
         RoleRouters roleRouters = new RoleRouters(roleId,routerId);
         return MyResponse.ok(routerService.addRouterForRole(roleRouters));
@@ -84,7 +84,7 @@ public class PermissionManagerController {
     @RequestMapping(value = "deleteRoleById" ,method = RequestMethod.DELETE)
     public ResponseEntity deleteRoleById(Integer id){
         if(id == null){
-            return MyResponse.badRequest("参数异常");
+            return MyResponse.badRequest();
         }
         return MyResponse.ok(roleService.deleteById(id));
     }
@@ -99,7 +99,7 @@ public class PermissionManagerController {
     @RequestMapping(value = "updateRole" ,method = RequestMethod.PUT)
     public ResponseEntity updateRole(Integer id,String name,String description){
         if(id == null || name == null){
-            return MyResponse.badRequest("角色名不能为空");
+            return MyResponse.badRequest();
         }
         Role role = new Role(id,name);
         if(description != null) role.setDescription(description);

@@ -44,7 +44,7 @@ public class PermissionController {
     @RequestMapping(value = "/getRolesByUserId" , method = RequestMethod.GET)
     public ResponseEntity getRolesByUserId(Integer userId){
         if(userId == null || userId < 0){
-            return MyResponse.badRequest("请求参数不合法");
+            return MyResponse.badRequest();
         }
         return MyResponse.ok(roleService.getRolesByUserId(userId));
     }
@@ -57,7 +57,7 @@ public class PermissionController {
     @RequestMapping(value = "/getRolesByRouterId" , method = RequestMethod.GET)
     public ResponseEntity getRolesByRouterId(Integer routerId){
         if(routerId == null || routerId < 0){
-            return MyResponse.badRequest("请求参数不合法");
+            return MyResponse.badRequest();
         }
         return MyResponse.ok(roleService.getRolesByRouterId(routerId));
     }
@@ -70,7 +70,7 @@ public class PermissionController {
     @RequestMapping(value = "/getUsersByRoleId" , method = RequestMethod.GET)
     public ResponseEntity getUsersByRoleId(Integer roleId){
         if(roleId == null || roleId < 0){
-            return MyResponse.badRequest("请求参数不合法");
+            return MyResponse.badRequest();
         }
         return MyResponse.ok(userService.getUsersByRoleId(roleId));
     }
@@ -92,7 +92,7 @@ public class PermissionController {
     @RequestMapping(value = "/getRoutersByRoleId" , method = RequestMethod.GET)
     public ResponseEntity getRoutersByRoleId(Integer roleId){
         if(roleId == null || roleId < 0){
-            return MyResponse.badRequest("请求参数不合法");
+            return MyResponse.badRequest();
         }
         return MyResponse.ok(routerService.getRoutersByRoleId(roleId));
     }
@@ -105,7 +105,7 @@ public class PermissionController {
     @RequestMapping(value = "/getRouterIdsByUserId" , method = RequestMethod.GET)
     public ResponseEntity getRoutersByUserId(Integer userId){
         if(userId == null){
-            return MyResponse.badRequest("请求参数不合法");
+            return MyResponse.badRequest();
         }
         return MyResponse.ok(routerService.getRouterIdsByUserId(userId));
     }

@@ -35,7 +35,7 @@ public class LogonController {
     @RequestMapping(value = "/logon",method = RequestMethod.POST)
     ResponseEntity logon(String userName,String phone,String wxId,String email,String password){
         if(userName == null && phone == null && email == null && password == null){
-            return MyResponse.badRequest("请求参数异常");
+            return MyResponse.badRequest();
         }else{
             User user = new User();
             user.setUserName(userName);
@@ -61,10 +61,10 @@ public class LogonController {
     @RequestMapping(value = "/register" , method = RequestMethod.POST)
     public ResponseEntity register(String userName,String phone,String email,String password){
         if(userName == null  && phone == null && email == null){
-            return MyResponse.badRequest("请求参数异常");
+            return MyResponse.badRequest();
         }
         if(password == null){
-            return MyResponse.badRequest("密码为空");
+            return MyResponse.badRequest();
         }
         User user = new User();
         if(userName != null){
