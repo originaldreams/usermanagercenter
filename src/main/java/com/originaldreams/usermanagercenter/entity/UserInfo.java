@@ -19,7 +19,7 @@ public class UserInfo {
     /**
     * 性别（男:0，女:1）
     */
-     private Integer gender;
+     private Integer gender = 0;
     /**
     * 地址
     */
@@ -48,6 +48,16 @@ public class UserInfo {
     * 掩码值，用来表示一系列开关
     */
      private Long mask;
+
+     public UserInfo(){
+
+     }
+
+     public UserInfo(Integer id,String phone,String email){
+         this.id = id;
+         this.phone = phone;
+         this.email = email;
+     }
      public Integer getId(){
            return this.id;
      }

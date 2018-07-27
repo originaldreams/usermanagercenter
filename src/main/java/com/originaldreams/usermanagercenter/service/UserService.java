@@ -2,6 +2,8 @@ package com.originaldreams.usermanagercenter.service;
 
 import com.originaldreams.common.encryption.MyMD5Utils;
 import com.originaldreams.common.response.MyServiceResponse;
+import com.originaldreams.usermanagercenter.entity.UserInfo;
+import com.originaldreams.usermanagercenter.mapper.UserInfoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ import java.util.List;
 public class UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -39,7 +44,7 @@ public class UserService {
                     checkPassword = true;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.success_code_failed);
-                    responseObject.setMessage("不支持用户名登录");
+                    responseObject.setMessage("该用户不存在或不支持用户名登录");
                 }
             }else if(user.getPhone() != null){    //手机号密码组合
                 checker = userMapper.getByPhone(user);
@@ -49,7 +54,7 @@ public class UserService {
 
                 }else{
                     responseObject.setSuccess(MyServiceResponse.success_code_failed);
-                    responseObject.setMessage("不支持手机号登录");
+                    responseObject.setMessage("该用户不存在或不支持手机号登录");
                 }
             }else if(user.getEmail() != null){    //邮箱密码组合
                 checker = userMapper.getByEmail(user);
@@ -58,7 +63,7 @@ public class UserService {
                     checkPassword = true;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.success_code_failed);
-                    responseObject.setMessage("不支持邮箱登录");
+                    responseObject.setMessage("该用户不存在或不支持邮箱登录");
                 }
             }
             try{
@@ -135,6 +140,8 @@ public class UserService {
         try {
             user.setPassword(MyMD5Utils.EncoderByMd5(user.getPassword()));
             userMapper.insert(user);
+            UserInfo userInfo = new UserInfo(user.getId(),user.getPhone(),user.getEmail());
+            userInfoMapper.insert(userInfo);
             responseObject.setSuccess(MyServiceResponse.success_code_success);
             responseObject.setData(user.getId());
             return responseObject;

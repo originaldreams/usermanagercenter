@@ -1,5 +1,6 @@
 package com.originaldreams.usermanagercenter.service;
 
+import com.originaldreams.common.response.MyServiceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.originaldreams.usermanagercenter.entity.UserInfo;
@@ -14,18 +15,16 @@ public class UserInfoService {
 
 
 
-    public UserInfo getById(Integer id){
-
-        return userInfoMapper.getById(id);
+    public MyServiceResponse getById(Integer id){
+        if(id == null)
+            return new MyServiceResponse(MyServiceResponse.success_code_failed,"用户ID为空");
+        return new MyServiceResponse(userInfoMapper.getById(id));
     }
+
 
 
     public List<UserInfo> getAll(){
         return userInfoMapper.getAll();
-    }
-
-    public Integer insert(UserInfo userInfo){
-        return userInfoMapper.insert(userInfo);
     }
 
     public Integer deleteById(Integer id){

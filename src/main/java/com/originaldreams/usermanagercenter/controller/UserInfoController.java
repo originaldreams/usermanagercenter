@@ -1,5 +1,6 @@
 package com.originaldreams.usermanagercenter.controller;
 
+import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.usermanagercenter.entity.UserInfo;
 import com.originaldreams.usermanagercenter.service.UserInfoService;
 import org.slf4j.Logger;
@@ -21,21 +22,22 @@ public class UserInfoController {
     @Resource
     private UserInfoService userInfoService;
 
-    @RequestMapping(value = "/getById",method = RequestMethod.GET)
-    ResponseEntity getById(Integer id){
-        UserInfo result = userInfoService.getById(id);
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
+    /**
+     * 查询用户信息
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/get",method = RequestMethod.GET)
+    ResponseEntity get(Integer id){
+        if(id == null){
+            return MyResponse.badRequest();
+        }
+        return MyResponse.ok(userInfoService.getById(id));
     }
 
     @RequestMapping(value = "/getAll",method = RequestMethod.GET)
     ResponseEntity getAll(){
         List<UserInfo> result = userInfoService.getAll();
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
-    }
-
-    @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    ResponseEntity insert(UserInfo userInfo){
-        Integer result = userInfoService.insert(userInfo);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
     }
 
