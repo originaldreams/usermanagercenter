@@ -36,33 +36,37 @@ public class UserService {
         User checker = null;
         boolean checkPassword = false;
         MyServiceResponse responseObject = new MyServiceResponse();
-        if(user.getPassword() != null){   //使用密码登录
-            if(user.getUserName() != null){   //用户名密码组合
+        if(user.getPassword() != null){
+            //使用密码登录
+            if(user.getUserName() != null){
+                //用户名密码组合
                 checker = userMapper.getByUserName(user);
                 //判断是否允许用户使用用户名登录
                 if(checker != null && checker.isPermitUserNameLogon()){
                     checkPassword = true;
                 }else{
-                    responseObject.setSuccess(MyServiceResponse.success_code_failed);
+                    responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                     responseObject.setMessage("该用户不存在或不支持用户名登录");
                 }
-            }else if(user.getPhone() != null){    //手机号密码组合
+            }else if(user.getPhone() != null){
+                //手机号密码组合
                 checker = userMapper.getByPhone(user);
                 //判断是否允许用户使用手机号登录
                 if(checker != null && checker.isPermitPhoneLogon()){
                     checkPassword = true;
 
                 }else{
-                    responseObject.setSuccess(MyServiceResponse.success_code_failed);
+                    responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                     responseObject.setMessage("该用户不存在或不支持手机号登录");
                 }
-            }else if(user.getEmail() != null){    //邮箱密码组合
+            }else if(user.getEmail() != null){
+                //邮箱密码组合
                 checker = userMapper.getByEmail(user);
                 //判断是否允许用户使用邮箱登录
                 if(checker != null && checker.isPermitEmailLogon()){
                     checkPassword = true;
                 }else{
-                    responseObject.setSuccess(MyServiceResponse.success_code_failed);
+                    responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                     responseObject.setMessage("该用户不存在或不支持邮箱登录");
                 }
             }
@@ -76,7 +80,7 @@ public class UserService {
                     if(MyMD5Utils.checkqual(user.getPassword(),checker.getPassword())){
                         responseObject.setData(checker.getId());
                     }else {
-                        responseObject.setSuccess(MyServiceResponse.success_code_failed);
+                        responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_SUCCESS);
                         responseObject.setMessage("用户名密码错误");
                     }
                 }else {
@@ -85,7 +89,7 @@ public class UserService {
 
             }catch (Exception e){
                 logger.error("校验密码异常 ",e);
-                responseObject.setSuccess(MyServiceResponse.success_code_failed);
+                responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                 responseObject.setMessage("用户名密码错误");
             }
 
@@ -106,7 +110,7 @@ public class UserService {
     public MyServiceResponse register(User user){
         User checker;
         MyServiceResponse responseObject = new MyServiceResponse();
-        responseObject.setSuccess(MyServiceResponse.success_code_failed);
+        responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
         if(user.getPhone() == null && user.getEmail() == null){
             responseObject.setMessage("参数异常");
             return responseObject;
@@ -122,14 +126,16 @@ public class UserService {
                 return responseObject;
             }
 
-        }else if(user.getPhone() != null){    //手机号密码组合
+        }else if(user.getPhone() != null){
+            //手机号密码组合
             checker = userMapper.getByPhone(user);
             //检查手机号是否已存在
             if(checker != null){
                 responseObject.setMessage("手机号已注册");
                 return responseObject;
             }
-        }else if(user.getEmail() != null){    //邮箱密码组合
+        }else if(user.getEmail() != null){
+            //邮箱密码组合
             checker = userMapper.getByEmail(user);
             //检查邮箱是否已存在
             if(checker != null){
@@ -142,7 +148,7 @@ public class UserService {
             userMapper.insert(user);
             UserInfo userInfo = new UserInfo(user.getId(),user.getPhone(),user.getEmail());
             userInfoMapper.insert(userInfo);
-            responseObject.setSuccess(MyServiceResponse.success_code_success);
+            responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_SUCCESS);
             responseObject.setData(user.getId());
             return responseObject;
         }catch (Exception e){

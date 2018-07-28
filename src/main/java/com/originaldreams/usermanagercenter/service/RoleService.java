@@ -52,7 +52,7 @@ public class RoleService {
     public MyServiceResponse insert(Role role){
         Role checker = roleMapper.getByName(role);
         if(checker != null){
-            return new MyServiceResponse(MyServiceResponse.success_code_failed,"角色名已存在");
+            return new MyServiceResponse(MyServiceResponse.SUCCESS_CODE_FAILED,"角色名已存在");
         }
         roleMapper.insert(role);
         return new MyServiceResponse(role.getId());

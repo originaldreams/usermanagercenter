@@ -17,7 +17,7 @@ public class UserInfoService {
 
     public MyServiceResponse getById(Integer id){
         if(id == null)
-            return new MyServiceResponse(MyServiceResponse.success_code_failed,"用户ID为空");
+            return new MyServiceResponse(MyServiceResponse.SUCCESS_CODE_FAILED,"用户ID为空");
         return new MyServiceResponse(userInfoMapper.getById(id));
     }
 
