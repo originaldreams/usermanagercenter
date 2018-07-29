@@ -41,12 +41,12 @@ public class PermissionController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/getRolesByUserId" , method = RequestMethod.GET)
-    public ResponseEntity getRolesByUserId(Integer userId){
+    @RequestMapping(value = "/getRoleByUserId" , method = RequestMethod.GET)
+    public ResponseEntity getRoleByUserId(Integer userId){
         if(userId == null || userId < 0){
             return MyResponse.badRequest();
         }
-        return MyResponse.ok(roleService.getRolesByUserId(userId));
+        return MyResponse.ok(roleService.getRoleByUserId(userId));
     }
 
     /**

@@ -19,18 +19,12 @@ public interface RoleMapper {
      @Select("SELECT id, name, description, createTime FROM " + tableName + " WHERE name = #{name}")
      Role getByName(Role role);
 
-     @Select("SELECT "+ tableName +".id, "
-             + tableName +".name, "
-             + tableName +".description, "
-             + tableName +".createTime "
+     @Select("SELECT b.id b, b.name , b.description , b.createTime  "
              +" FROM " + userRoles + " a, "+ tableName + " b "
              + " WHERE a.roleId = b.id AND a.userId = #{userId}" )
-     List<Role> getRolesByUserId(Integer userId);
+     Role getRoleByUserId(Integer userId);
 
-     @Select("SELECT "+ tableName +".id, "
-         + tableName +".name, "
-         + tableName +".description, "
-         + tableName +".createTime "
+     @Select("SELECT b.id, b.name, b.description, b.createTime "
          +" FROM " + roleRouters + " a, "+ tableName + " b "
          + " WHERE a.roleId = b.id AND a.routerId = #{routerId}" )
      List<Role> getRolesByRouterId(Integer routerId);

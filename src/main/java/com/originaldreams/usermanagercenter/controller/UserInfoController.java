@@ -24,31 +24,19 @@ public class UserInfoController {
 
     /**
      * 查询用户信息
-     * @param id
+     * @param fromId
      * @return
      */
     @RequestMapping(value = "/get",method = RequestMethod.GET)
-    ResponseEntity get(Integer id){
-        if(id == null){
+    ResponseEntity get(Integer fromId){
+        if(fromId == null){
             return MyResponse.badRequest();
         }
-        return MyResponse.ok(userInfoService.getById(id));
+        return MyResponse.ok(userInfoService.getById(fromId));
     }
 
-    @RequestMapping(value = "/getAll",method = RequestMethod.GET)
-    ResponseEntity getAll(){
-        List<UserInfo> result = userInfoService.getAll();
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
-    }
-
-    @RequestMapping(value = "/deleteById",method = RequestMethod.DELETE)
-    ResponseEntity deleteById(Integer id){
-        Integer result = userInfoService.deleteById(id);
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
-    }
-
-    @RequestMapping(value = "/update",method = RequestMethod.PUT)
-    ResponseEntity update(UserInfo userInfo){
+    @RequestMapping(value = "/put",method = RequestMethod.PUT)
+    ResponseEntity put(UserInfo userInfo){
         Integer result = userInfoService.update(userInfo);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
     }
