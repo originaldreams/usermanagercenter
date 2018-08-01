@@ -18,6 +18,8 @@ import javax.annotation.Resource;
 /**
  * 用户权限管理控制
  * 提供用户权限相关操作功能（包括角色划分、角色分配、授权等）
+ * @author 杨凯乐
+ * @date 2018-07-30 09:18:22
  */
 @RestController
 @RequestMapping("/permissionManager")

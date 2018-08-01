@@ -25,7 +25,7 @@ public interface RouterMapper {
      })
      List<Router> getRoutersByRoleId(Integer roleId);
 
-     @Insert("INSERT INTO " + tableName + "(id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask) VALUES (#{id}, #{serviceName}, #{controllerName}, #{methodName}, #{routerUrl}, #{firstMask}, #{secondMask})")
+     @Insert("INSERT INTO " + tableName + "(id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod) VALUES (#{id}, #{serviceName}, #{controllerName}, #{methodName}, #{routerUrl}, #{firstMask}, #{secondMask},#{requestMethod})")
      Integer insert(Router router);
 
      @Delete("DELETE FROM " + tableName + " WHERE id = #{id}")

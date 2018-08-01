@@ -11,6 +11,7 @@ public class Router {
      private String routerUrl;
      private Long firstMask;
      private Long secondMask;
+     private String requestMethod;
 
     public Router() {
     }
@@ -79,8 +80,15 @@ public class Router {
            this.secondMask = secondMask;
      }
 
+    public String getRequestMethod() {
+        return requestMethod;
+    }
 
-@Override
+    public void setRequestMethod(String requestMethod) {
+        this.requestMethod = requestMethod;
+    }
+
+    @Override
     public String toString() {
         return "Router{" +
             "  id:" + id + "  serviceName:" + serviceName + "  controllerName:" + controllerName + "  methodName:" + methodName + "  routerUrl:" + routerUrl + "  firstMask:" + firstMask + "  secondMask:" + secondMask + 

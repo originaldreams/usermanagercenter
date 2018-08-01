@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author 杨凯乐
+ * @date 2018-07-30 09:16:35
+ */
 @RestController
 @RequestMapping("/userInfo")
 public class UserInfoController {
@@ -24,18 +28,18 @@ public class UserInfoController {
 
     /**
      * 查询用户信息
-     * @param fromId
+     * @param userId
      * @return
      */
-    @RequestMapping(value = "/get",method = RequestMethod.GET)
-    ResponseEntity get(Integer fromId){
-        if(fromId == null){
+    @RequestMapping(method = RequestMethod.GET)
+    ResponseEntity get(Integer userId){
+        if(userId == null){
             return MyResponse.badRequest();
         }
-        return MyResponse.ok(userInfoService.getById(fromId));
+        return MyResponse.ok(userInfoService.getById(userId));
     }
 
-    @RequestMapping(value = "/put",method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     ResponseEntity put(UserInfo userInfo){
         Integer result = userInfoService.update(userInfo);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);

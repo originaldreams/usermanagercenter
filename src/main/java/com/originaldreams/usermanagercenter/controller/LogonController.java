@@ -15,6 +15,8 @@ import javax.annotation.Resource;
 /**
  * 登录控制
  * 负责用户的登录和注册
+ * @author 杨凯乐
+ * @date 2018-07-30 09:17:03
  */
 @RestController
 public class LogonController {

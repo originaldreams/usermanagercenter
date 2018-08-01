@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 /**
  *  用户权限访问控制
  *  提供用户权限查询功能
+ * @author 杨凯乐
+ * @date 2018-07-30 09:18:05
  */
 @RestController
 @RequestMapping("/permission")
