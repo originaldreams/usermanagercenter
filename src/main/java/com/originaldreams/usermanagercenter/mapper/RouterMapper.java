@@ -19,8 +19,8 @@ public interface RouterMapper {
      @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask FROM " + tableName)
      List<Router> getAll();
 
-     @Select({"SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask FROM "
-             + tableName + "a ," + roleRouters + " b "
+     @Select({"SELECT a.id, a.serviceName, a.controllerName, a.methodName, a.routerUrl, a.firstMask, a.secondMask "
+             + " FROM " + tableName + " a ," + roleRouters + " b "
              + " WHERE a.id = b.routerId AND b.roleId = #{roleId}"
      })
      List<Router> getRoutersByRoleId(Integer roleId);

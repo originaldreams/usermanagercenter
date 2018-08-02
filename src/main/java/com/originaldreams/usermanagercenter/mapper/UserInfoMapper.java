@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserInfoMapper {
     String tableName = "user_info";
 
-     @Select("SELECT id, nickName, birthday, gender, address, signature, userPortrait, email, phone, createTime, mask FROM " + tableName + " WHERE id = #{id}")
+ @Select("SELECT id, nickName, birthday, gender, address, signature, userPortrait, email, phone, createTime, mask FROM " + tableName + " WHERE id = #{id}")
      UserInfo getById(Integer Id);
 
      @Select("SELECT id, nickName, birthday, gender, address, signature, userPortrait, email, phone, createTime, mask FROM " + tableName)
@@ -25,6 +25,4 @@ public interface UserInfoMapper {
      Integer deleteById(Integer id);
      @Update("UPDATE " + tableName + " SET nickName=#{nickName}, birthday=#{birthday}, gender=#{gender}, address=#{address}, signature=#{signature}, userPortrait=#{userPortrait}, email=#{email}, phone=#{phone}, createTime=#{createTime}, mask=#{mask} WHERE id = #{id}")
      Integer update(UserInfo userInfo);
-
-
 }
