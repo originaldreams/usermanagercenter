@@ -104,7 +104,9 @@ public class PermissionManagerController {
             return MyResponse.badRequest();
         }
         Role role = new Role(id,name);
-        if(description != null) role.setDescription(description);
+        if(description != null){
+            role.setDescription(description);
+        }
         return MyResponse.ok(roleService.update(role));
     }
 
