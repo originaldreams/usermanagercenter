@@ -13,13 +13,13 @@ public interface RouterMapper {
     String tableName = "Router";
     String roleRouters = "role_routers";
 
-     @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask FROM " + tableName + " WHERE id = #{id}")
+     @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod FROM " + tableName + " WHERE id = #{id}")
      Router getById(Integer Id);
 
-     @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask FROM " + tableName)
+     @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod FROM " + tableName)
      List<Router> getAll();
 
-     @Select({"SELECT a.id, a.serviceName, a.controllerName, a.methodName, a.routerUrl, a.firstMask, a.secondMask "
+     @Select({"SELECT a.id, a.serviceName, a.controllerName, a.methodName, a.routerUrl, a.firstMask, a.secondMask,a.requestMethod "
              + " FROM " + tableName + " a ," + roleRouters + " b "
              + " WHERE a.id = b.routerId AND b.roleId = #{roleId}"
      })
