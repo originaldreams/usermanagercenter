@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface RouterMapper {
-    String tableName = "Router";
+    String tableName = "router";
     String roleRouters = "role_routers";
 
      @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod FROM " + tableName + " WHERE id = #{id}")
