@@ -3,6 +3,10 @@ package com.originaldreams.usermanagercenter.entity;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author  杨凯乐
+ * @date 2018-08-11 13:30:33
+ */
 public class Role {
     /**
     * 角色ID
