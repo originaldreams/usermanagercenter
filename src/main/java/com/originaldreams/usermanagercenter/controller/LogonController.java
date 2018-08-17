@@ -2,16 +2,22 @@ package com.originaldreams.usermanagercenter.controller;
 
 import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.common.response.MyServiceResponse;
+import com.originaldreams.common.router.MyRouter;
 import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 登录控制
  * 负责用户的登录和注册
@@ -21,6 +27,9 @@ import javax.annotation.Resource;
 @RestController
 public class LogonController {
     private Logger logger = LoggerFactory.getLogger(LogonController.class);
+
+    @Autowired
+    RestTemplate restTemplate;
 
     @Resource
     private UserService userService;
@@ -47,6 +56,15 @@ public class LogonController {
             logger.info("user logon:" + user);
             user.setPassword(password);
             MyServiceResponse response = userService.logon(user);
+
+            Map<String, String> map = new HashMap<>();
+            map.put("userName",userName);
+            map.put("phone",phone);
+            map.put("email", email);
+            map.put("password",password);
+            ResponseEntity<String> responseEntity = restTemplate.postForEntity(MyRouter.USER_MANAGER_REGISTER +
+                    "?userName={userName}&phone={phone}&email={email}&password={password}",null,String.class,map);
+            logger.info("logonLog Ok: " + responseEntity.getBody());
 
             return MyResponse.ok(response);
         }

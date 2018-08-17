@@ -2,16 +2,20 @@ package com.originaldreams.usermanagercenter.service;
 
 import com.originaldreams.common.encryption.MyMD5Utils;
 import com.originaldreams.common.response.MyServiceResponse;
+import com.originaldreams.common.router.MyRouter;
 import com.originaldreams.usermanagercenter.entity.UserInfo;
 import com.originaldreams.usermanagercenter.mapper.UserInfoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.mapper.UserMapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService {
