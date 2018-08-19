@@ -28,9 +28,6 @@ import java.util.Map;
 public class LogonController {
     private Logger logger = LoggerFactory.getLogger(LogonController.class);
 
-    @Autowired
-    RestTemplate restTemplate;
-
     @Resource
     private UserService userService;
 
@@ -56,15 +53,6 @@ public class LogonController {
             logger.info("user logon:" + user);
             user.setPassword(password);
             MyServiceResponse response = userService.logon(user);
-
-            Map<String, String> map = new HashMap<>();
-            map.put("userName",userName);
-            map.put("phone",phone);
-            map.put("email", email);
-            map.put("password",password);
-            ResponseEntity<String> responseEntity = restTemplate.postForEntity(MyRouter.USER_MANAGER_REGISTER +
-                    "?userName={userName}&phone={phone}&email={email}&password={password}",null,String.class,map);
-            logger.info("logonLog Ok: " + responseEntity.getBody());
 
             return MyResponse.ok(response);
         }

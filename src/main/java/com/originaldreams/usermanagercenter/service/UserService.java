@@ -5,6 +5,7 @@ import com.originaldreams.common.response.MyServiceResponse;
 import com.originaldreams.common.router.MyRouter;
 import com.originaldreams.usermanagercenter.entity.UserInfo;
 import com.originaldreams.usermanagercenter.mapper.UserInfoMapper;
+import com.originaldreams.usermanagercenter.utils.LogonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.mapper.UserMapper;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author yangkaile
+ * @date 2018-08-19 12:02:38
+ */
 @Service
 public class UserService {
     @Autowired
@@ -24,6 +30,9 @@ public class UserService {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -39,6 +48,7 @@ public class UserService {
     public MyServiceResponse logon(User user)  {
         User checker = null;
         boolean checkPassword = false;
+        Integer way = null;
         MyServiceResponse responseObject = new MyServiceResponse();
         if(user.getPassword() != null){
             //使用密码登录
@@ -48,6 +58,7 @@ public class UserService {
                 //判断是否允许用户使用用户名登录
                 if(checker != null && checker.isPermitUserNameLogon()){
                     checkPassword = true;
+                    way = LogonUtils.LOGON_WAY_USERNAME;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                     responseObject.setMessage("该用户不存在或不支持用户名登录");
@@ -58,7 +69,7 @@ public class UserService {
                 //判断是否允许用户使用手机号登录
                 if(checker != null && checker.isPermitPhoneLogon()){
                     checkPassword = true;
-
+                    way = LogonUtils.LOGON_WAY_PHONE;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                     responseObject.setMessage("该用户不存在或不支持手机号登录");
@@ -69,6 +80,7 @@ public class UserService {
                 //判断是否允许用户使用邮箱登录
                 if(checker != null && checker.isPermitEmailLogon()){
                     checkPassword = true;
+                    way = LogonUtils.LOGON_WAY_EMAIL;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                     responseObject.setMessage("该用户不存在或不支持邮箱登录");
@@ -83,6 +95,16 @@ public class UserService {
                 if(checkPassword){
                     if(MyMD5Utils.checkqual(user.getPassword(),checker.getPassword())){
                         responseObject.setData(checker.getId());
+
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("userId",checker.getId());
+                        map.put("type",LogonUtils.LOGON_TYPE_LOGON);
+                        map.put("way", way);
+                        map.put("ip","ddd");
+
+                        ResponseEntity<String> responseEntity = restTemplate.postForEntity(MyRouter.LOG_LOGON_LOG_INSERT +
+                                "?userId={userId}&type={type}&way={way}&ip={ip}",null,String.class,map);
+                        logger.info("logonLog Ok: " + responseEntity.getBody());
                     }else {
                         responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_SUCCESS);
                         responseObject.setMessage("用户名密码错误");
@@ -130,7 +152,8 @@ public class UserService {
                 return responseObject;
             }
 
-        }else if(user.getPhone() != null){
+        }
+        if(user.getPhone() != null){
             //手机号密码组合
             checker = userMapper.getByPhone(user);
             //检查手机号是否已存在
@@ -138,7 +161,8 @@ public class UserService {
                 responseObject.setMessage("手机号已注册");
                 return responseObject;
             }
-        }else if(user.getEmail() != null){
+        }
+        if(user.getEmail() != null){
             //邮箱密码组合
             checker = userMapper.getByEmail(user);
             //检查邮箱是否已存在
