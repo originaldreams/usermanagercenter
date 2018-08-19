@@ -111,4 +111,10 @@ public class PermissionController {
         }
         return MyResponse.ok(routerService.getRouterIdsByUserId(userId));
     }
+
+    @RequestMapping(value = "/getAllUserNameAndRoleName" ,method = RequestMethod.GET)
+    public ResponseEntity getAllUserNameAndRoleName(){
+        return MyResponse.ok(userService.getAllUserNameAndRoleName());
+    }
+
 }
