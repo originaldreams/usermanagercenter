@@ -1,6 +1,7 @@
 package com.originaldreams.usermanagercenter.mapper;
 
 import com.originaldreams.usermanagercenter.entity.User;
+import com.originaldreams.usermanagercenter.view.UserView;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -50,4 +51,7 @@ public interface UserMapper {
              + " FROM " + userRoles + " a, "+ tableName + " b "
              + " WHERE a.userId =b.id  AND a.roleId = #{roleId}" )
      List<User> getUsersByRoleId(Integer roleId);
+
+     @Select("select u.id as userId,u.userName as userName,r.name as roleName,u.createTime as createTime from user u,user_roles ur,role r where u.id = ur.userId and r.id = ur.roleId")
+     List<UserView> getAllUserNameAndRoleName();
 }

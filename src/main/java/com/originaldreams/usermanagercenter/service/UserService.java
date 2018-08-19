@@ -195,6 +195,11 @@ public class UserService {
         return new MyServiceResponse(userMapper.getUsersByRoleId(roleId));
     }
 
+    public MyServiceResponse getAllUserNameAndRoleName(){
+        return new MyServiceResponse(userMapper.getAllUserNameAndRoleName());
+    }
+
+
     public User getById(Integer id){
 
         return userMapper.getById(id);

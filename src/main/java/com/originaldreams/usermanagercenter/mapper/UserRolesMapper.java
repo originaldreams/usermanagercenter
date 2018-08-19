@@ -1,15 +1,16 @@
 package com.originaldreams.usermanagercenter.mapper;
 
-import com.originaldreams.usermanagercenter.entity.Role;
-import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.entity.UserRoles;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
+/**
+ * @author yangkaile
+ * @date 2018-08-19 19:43:35
+ */
 @Mapper
 public interface UserRolesMapper {
     String tableName = "user_roles";
