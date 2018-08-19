@@ -5,7 +5,7 @@
 
     <groupId>com.originaldreams</groupId>
     <artifactId>usermanagercenter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>usermanagercenter</name>
@@ -75,6 +75,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <finalName>usermanager</finalName>
     </build>
 
 
