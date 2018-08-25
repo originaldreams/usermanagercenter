@@ -42,6 +42,7 @@ public class LogonController {
      */
     @RequestMapping(value = "/logon",method = RequestMethod.POST)
     ResponseEntity logon(String userName,String phone,String wxId,String email,String password){
+        logger.info(userName + "--" + phone + "--" + email + "--" + password);
         if(userName == null && phone == null && email == null && password == null){
             return MyResponse.badRequest();
         }else{
