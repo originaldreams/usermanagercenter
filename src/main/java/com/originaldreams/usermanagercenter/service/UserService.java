@@ -133,59 +133,53 @@ public class UserService {
      * @param user
      * @return
      */
-    public MyServiceResponse register(User user){
+    public MyServiceResponse registerByPhone(User user,String verificationCode) throws Exception{
         User checker;
         MyServiceResponse responseObject = new MyServiceResponse();
-        responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
-        if(user.getPhone() == null && user.getEmail() == null){
+        if(user.getPhone() == null || user.getPassword() == null){
+            responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
             responseObject.setMessage("参数异常");
             return responseObject;
-        }else if(user.getPassword() == null){
-            responseObject.setMessage("密码为空");
+        }
+        //手机号密码组合
+        checker = userMapper.getByPhone(user);
+        //检查手机号是否已存在
+        if(checker != null){
+            responseObject.setMessage("手机号已注册");
+            responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
             return responseObject;
         }
-        if(user.getUserName() != null){
-            checker = userMapper.getByUserName(user);
-            //检查用户名是否已存在
-            if(checker != null ){
-                responseObject.setMessage("用户名已注册");
-                return responseObject;
-            }
-
-        }
-        if(user.getPhone() != null){
-            //手机号密码组合
-            checker = userMapper.getByPhone(user);
-            //检查手机号是否已存在
-            if(checker != null){
-                responseObject.setMessage("手机号已注册");
-                return responseObject;
-            }
-        }
-        if(user.getEmail() != null){
-            //邮箱密码组合
-            checker = userMapper.getByEmail(user);
-            //检查邮箱是否已存在
-            if(checker != null){
-                responseObject.setMessage("邮箱已注册");
-                return responseObject;
-            }
-        }
-        try {
-            user.setPassword(MyMD5Utils.EncoderByMd5(user.getPassword()));
-            userMapper.insert(user);
-            UserInfo userInfo = new UserInfo(user.getId(),user.getPhone(),user.getEmail());
-            userInfoMapper.insert(userInfo);
-            responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_SUCCESS);
-            responseObject.setData(user.getId());
-            return responseObject;
-        }catch (Exception e){
-            logger.error("注册失败 ", e);
-            responseObject.setMessage("注册失败");
-            return responseObject;
-        }
+        //TODO 去logCenter核对短信验证码发送记录
+        return register(user);
     }
-
+    private MyServiceResponse register (User user) throws Exception{
+        MyServiceResponse responseObject = new MyServiceResponse();
+        user.setPassword(MyMD5Utils.EncoderByMd5(user.getPassword()));
+        userMapper.insert(user);
+        UserInfo userInfo = new UserInfo(user.getId(),user.getPhone(),user.getEmail());
+        userInfoMapper.insert(userInfo);
+        responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_SUCCESS);
+        responseObject.setData(user.getId());
+        return responseObject;
+    }
+    public MyServiceResponse registerByEmail(User user,String verificationCode) throws Exception{
+        User checker;
+        MyServiceResponse responseObject = new MyServiceResponse();
+        if(user.getEmail() == null || user.getPassword() == null) {
+            responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
+            responseObject.setMessage("参数异常");
+            return responseObject;
+        }
+        //邮箱密码组合
+        checker = userMapper.getByEmail(user);
+        //检查邮箱是否已存在
+        if(checker != null){
+            responseObject.setMessage("邮箱已注册");
+            return responseObject;
+        }
+        //TODO 去logCenter核对邮件发送记录
+        return register(user);
+    }
     /**
      * 根据角色查找用户
      * @param roleId

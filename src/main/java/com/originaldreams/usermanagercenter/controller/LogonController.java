@@ -3,6 +3,7 @@ package com.originaldreams.usermanagercenter.controller;
 import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.common.response.MyServiceResponse;
 import com.originaldreams.common.router.MyRouter;
+import com.originaldreams.common.util.ValidUserName;
 import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.service.UserService;
 import org.slf4j.Logger;
@@ -62,34 +63,32 @@ public class LogonController {
     /**
      * 注册接口
      * @param userName  用户名（可用于登录） 选填
-     * @param phone     手机号
-     * @param email     邮箱  手机号和邮箱至少要填其中一项
      * @param password  密码  必填
      * @return
      */
     @RequestMapping(value = "/register" , method = RequestMethod.POST)
-    public ResponseEntity register(String userName,String phone,String email,String password){
-        if(userName == null  && phone == null && email == null){
-            return MyResponse.badRequest();
+    public ResponseEntity register(String userName,String password,String verificationCode) {
+        try {
+            if (userName == null || userName.isEmpty() || password == null || password.isEmpty()) {
+                return MyResponse.badRequest();
+            }
+            User user = new User();
+            logger.info("user register:" + userName);
+            user.setPassword(password);
+            if (ValidUserName.isValidPhoneNumber(userName)) {
+                user.setPhone(userName);
+                user.setPhoneLogon();
+                return MyResponse.ok(userService.registerByPhone(user, verificationCode));
+            } else if (ValidUserName.isValidEmailAddress(userName)) {
+                user.setEmail(userName);
+                user.setEmailLogon();
+                return MyResponse.ok(userService.registerByEmail(user, verificationCode));
+            } else {
+                return MyResponse.badRequest();
+            }
+
+        } catch (Exception e) {
+            return MyResponse.serverError();
         }
-        if(password == null){
-            return MyResponse.badRequest();
-        }
-        User user = new User();
-        if(userName != null){
-            user.setUserName(userName);
-            user.setUserNameLogon();
-        }
-        if(phone != null){
-            user.setPhone(phone);
-            user.setPhoneLogon();
-        }
-        if(email != null){
-            user.setEmail(email);
-            user.setEmailLogon();
-        }
-        logger.info("user register:" + user);
-        user.setPassword(password);
-        return MyResponse.ok(userService.register(user));
     }
 }
