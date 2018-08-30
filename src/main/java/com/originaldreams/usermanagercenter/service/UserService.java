@@ -3,6 +3,7 @@ package com.originaldreams.usermanagercenter.service;
 import com.originaldreams.common.encryption.MyMD5Utils;
 import com.originaldreams.common.response.MyServiceResponse;
 import com.originaldreams.common.router.MyRouter;
+import com.originaldreams.common.util.ResponseUtils;
 import com.originaldreams.usermanagercenter.entity.UserInfo;
 import com.originaldreams.usermanagercenter.mapper.UserInfoMapper;
 import com.originaldreams.usermanagercenter.utils.LogonUtils;
@@ -102,6 +103,7 @@ public class UserService {
                         map.put("way", way);
                         map.put("ip","ddd");
 
+                        //记录登录日志
                         ResponseEntity<String> responseEntity = restTemplate.postForEntity(MyRouter.LOG_LOGON_LOG_INSERT +
                                 "?userId={userId}&type={type}&way={way}&ip={ip}",null,String.class,map);
                         logger.info("logonLog Ok: " + responseEntity.getBody());
@@ -150,7 +152,19 @@ public class UserService {
             return responseObject;
         }
         //TODO 去logCenter核对短信验证码发送记录
-        return register(user);
+        Map<String, Object> map = new HashMap<>();
+        map.put("phone",user.getPhone());
+        map.put("codeStr",verificationCode);
+        //验证短信验证码
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(MyRouter.LOG_SMSLOG_CHECK_AND_UPDATE_STATE +
+                "?phone={phone}&codeStr={codeStr}",String.class,map);
+        if(ResponseUtils.isSuccess(responseEntity)){
+            return register(user);
+        }else {
+            responseObject.setMessage("验证码错误");
+            responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
+            return responseObject;
+        }
     }
     private MyServiceResponse register (User user) throws Exception{
         MyServiceResponse responseObject = new MyServiceResponse();
