@@ -1,10 +1,8 @@
 package com.originaldreams.usermanagercenter.mapper;
 
 import com.originaldreams.usermanagercenter.entity.UserRoles;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
 import java.util.List;
 
 /**
@@ -30,8 +28,7 @@ public interface UserRolesMapper {
      @Delete("DELETE FROM " + tableName + " WHERE roleId = #{roleId}")
      Integer deleteByRoleId(Integer roleId);
 
-
-
-
+     @Update("UPDATE " + tableName + " SET roleId = #{roleId} , createTime = #{createTime} WHERE userId = #{userId}")
+     Integer update(UserRoles userRoles);
 
 }

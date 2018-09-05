@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import com.originaldreams.usermanagercenter.entity.Role;
 import com.originaldreams.usermanagercenter.mapper.RoleMapper;
 
+/**
+ * @author yangkaile
+ * @date 2018-09-05 08:54:10
+ */
 @Service
 public class RoleService {
     @Autowired
@@ -33,7 +37,11 @@ public class RoleService {
     }
 
     public MyServiceResponse addRoleForUser(UserRoles userRoles){
-        return new MyServiceResponse(userRolesMapper.insert(userRoles));
+        UserRoles result = userRolesMapper.getByUserId(userRoles.getUserId());
+        if(result == null){
+            return new MyServiceResponse(userRolesMapper.insert(userRoles));
+        }
+        return new MyServiceResponse(userRolesMapper.update(userRoles));
     }
 
     public MyServiceResponse deleteById(Integer id){
