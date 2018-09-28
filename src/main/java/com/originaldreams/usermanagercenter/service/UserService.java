@@ -4,16 +4,16 @@ import com.originaldreams.common.encryption.MyMD5Utils;
 import com.originaldreams.common.response.MyServiceResponse;
 import com.originaldreams.common.router.MyRouter;
 import com.originaldreams.common.util.ResponseUtils;
+import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.entity.UserInfo;
 import com.originaldreams.usermanagercenter.mapper.UserInfoMapper;
+import com.originaldreams.usermanagercenter.mapper.UserMapper;
 import com.originaldreams.usermanagercenter.utils.LogonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.originaldreams.usermanagercenter.entity.User;
-import com.originaldreams.usermanagercenter.mapper.UserMapper;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;

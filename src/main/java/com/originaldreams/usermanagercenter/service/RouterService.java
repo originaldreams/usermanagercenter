@@ -1,11 +1,11 @@
 package com.originaldreams.usermanagercenter.service;
 
+import com.originaldreams.common.entity.Router;
 import com.originaldreams.common.response.MyServiceResponse;
 import com.originaldreams.common.router.MyRouter;
 import com.originaldreams.common.router.MyRouterObject;
 import com.originaldreams.usermanagercenter.cache.MyCache;
 import com.originaldreams.usermanagercenter.entity.RoleRouters;
-import com.originaldreams.usermanagercenter.entity.Router;
 import com.originaldreams.usermanagercenter.mapper.RoleRoutersMapper;
 import com.originaldreams.usermanagercenter.mapper.RouterMapper;
 import org.slf4j.Logger;
