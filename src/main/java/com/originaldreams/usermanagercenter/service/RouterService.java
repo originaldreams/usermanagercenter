@@ -31,14 +31,14 @@ public class RouterService {
      *
      */
     public void initRouters(){
-        List<MyRouterObject> list = new ArrayList(MyRouter.routerMapGet.values());
+        List<MyRouterObject> list = new ArrayList<>(MyRouter.routerMapGet.values());
         routerMapper.deleteAll();
         insert(list,"GET");
-        list = new ArrayList(MyRouter.routerMapPost.values());
+        list = new ArrayList<>(MyRouter.routerMapPost.values());
         insert(list,"POST");
-        list = new ArrayList(MyRouter.routerMapDelete.values());
+        list = new ArrayList<>(MyRouter.routerMapDelete.values());
         insert(list,"DELETE");
-        list = new ArrayList(MyRouter.routerMapPut.values());
+        list = new ArrayList<>(MyRouter.routerMapPut.values());
         insert(list,"PUT");
         logger.trace("initRouters OK");
     }
