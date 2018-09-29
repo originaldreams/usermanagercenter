@@ -1,11 +1,11 @@
 package com.originaldreams.usermanagercenter.service;
 
+import com.originaldreams.common.entity.Router;
 import com.originaldreams.common.response.MyServiceResponse;
 import com.originaldreams.common.router.MyRouter;
 import com.originaldreams.common.router.MyRouterObject;
 import com.originaldreams.usermanagercenter.cache.MyCache;
 import com.originaldreams.usermanagercenter.entity.RoleRouters;
-import com.originaldreams.usermanagercenter.entity.Router;
 import com.originaldreams.usermanagercenter.mapper.RoleRoutersMapper;
 import com.originaldreams.usermanagercenter.mapper.RouterMapper;
 import org.slf4j.Logger;
@@ -31,14 +31,14 @@ public class RouterService {
      *
      */
     public void initRouters(){
-        List<MyRouterObject> list = new ArrayList(MyRouter.routerMapGet.values());
+        List<MyRouterObject> list = new ArrayList<>(MyRouter.routerMapGet.values());
         routerMapper.deleteAll();
         insert(list,"GET");
-        list = new ArrayList(MyRouter.routerMapPost.values());
+        list = new ArrayList<>(MyRouter.routerMapPost.values());
         insert(list,"POST");
-        list = new ArrayList(MyRouter.routerMapDelete.values());
+        list = new ArrayList<>(MyRouter.routerMapDelete.values());
         insert(list,"DELETE");
-        list = new ArrayList(MyRouter.routerMapPut.values());
+        list = new ArrayList<>(MyRouter.routerMapPut.values());
         insert(list,"PUT");
         logger.trace("initRouters OK");
     }
