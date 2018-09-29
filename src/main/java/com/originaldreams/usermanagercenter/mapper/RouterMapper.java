@@ -1,11 +1,8 @@
 package com.originaldreams.usermanagercenter.mapper;
 
-import com.originaldreams.usermanagercenter.entity.Router;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.originaldreams.common.entity.Router;
+import org.apache.ibatis.annotations.*;
+
 import java.util.List;
 
 @Mapper
