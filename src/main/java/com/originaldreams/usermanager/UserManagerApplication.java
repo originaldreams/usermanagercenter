@@ -1,4 +1,4 @@
-package com.originaldreams.usermanagercenter;
+package com.originaldreams.usermanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,11 +1,11 @@
-package com.originaldreams.usermanagercenter.service;
+package com.originaldreams.usermanager.service;
 
 import com.originaldreams.common.response.MyServiceResponse;
+import com.originaldreams.usermanager.mapper.RoleMapper;
+import com.originaldreams.usermanager.mapper.RoleRoutersMapper;
 import com.originaldreams.usermanagercenter.entity.Role;
 import com.originaldreams.usermanagercenter.entity.UserRoles;
-import com.originaldreams.usermanagercenter.mapper.RoleMapper;
-import com.originaldreams.usermanagercenter.mapper.RoleRoutersMapper;
-import com.originaldreams.usermanagercenter.mapper.UserRolesMapper;
+import com.originaldreams.usermanager.mapper.UserRolesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

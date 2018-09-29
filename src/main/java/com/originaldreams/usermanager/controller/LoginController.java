@@ -1,11 +1,11 @@
-package com.originaldreams.usermanagercenter.controller;
+package com.originaldreams.usermanager.controller;
 
 import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.common.response.MyServiceResponse;
 import com.originaldreams.common.util.StringUtils;
 import com.originaldreams.common.util.ValidUserName;
+import com.originaldreams.usermanager.service.UserService;
 import com.originaldreams.usermanagercenter.entity.User;
-import com.originaldreams.usermanagercenter.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +23,9 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping(value = "/api/v1")
-public class LogonController {
+public class LoginController {
 
-    private static final Logger logger = LoggerFactory.getLogger(LogonController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Resource
     private UserService userService;

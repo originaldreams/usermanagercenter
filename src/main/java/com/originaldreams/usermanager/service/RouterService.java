@@ -1,13 +1,13 @@
-package com.originaldreams.usermanagercenter.service;
+package com.originaldreams.usermanager.service;
 
 import com.originaldreams.common.entity.Router;
 import com.originaldreams.common.response.MyServiceResponse;
 import com.originaldreams.common.router.MyRouter;
 import com.originaldreams.common.router.MyRouterObject;
-import com.originaldreams.usermanagercenter.cache.MyCache;
+import com.originaldreams.usermanager.cache.MyCache;
+import com.originaldreams.usermanager.mapper.RoleRoutersMapper;
+import com.originaldreams.usermanager.mapper.RouterMapper;
 import com.originaldreams.usermanagercenter.entity.RoleRouters;
-import com.originaldreams.usermanagercenter.mapper.RoleRoutersMapper;
-import com.originaldreams.usermanagercenter.mapper.RouterMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

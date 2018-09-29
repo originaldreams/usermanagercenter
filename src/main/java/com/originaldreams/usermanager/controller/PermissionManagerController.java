@@ -1,11 +1,11 @@
-package com.originaldreams.usermanagercenter.controller;
+package com.originaldreams.usermanager.controller;
 
 import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.usermanagercenter.entity.Role;
 import com.originaldreams.usermanagercenter.entity.RoleRouters;
 import com.originaldreams.usermanagercenter.entity.UserRoles;
-import com.originaldreams.usermanagercenter.service.RoleService;
-import com.originaldreams.usermanagercenter.service.RouterService;
+import com.originaldreams.usermanager.service.RoleService;
+import com.originaldreams.usermanager.service.RouterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

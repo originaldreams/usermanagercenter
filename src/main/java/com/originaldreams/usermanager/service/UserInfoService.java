@@ -1,8 +1,8 @@
-package com.originaldreams.usermanagercenter.service;
+package com.originaldreams.usermanager.service;
 
 import com.originaldreams.common.response.MyServiceResponse;
+import com.originaldreams.usermanager.mapper.UserInfoMapper;
 import com.originaldreams.usermanagercenter.entity.UserInfo;
-import com.originaldreams.usermanagercenter.mapper.UserInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

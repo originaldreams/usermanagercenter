@@ -1,7 +1,7 @@
-package com.originaldreams.usermanagercenter.mapper;
+package com.originaldreams.usermanager.mapper;
 
 import com.originaldreams.usermanagercenter.entity.User;
-import com.originaldreams.usermanagercenter.view.UserView;
+import com.originaldreams.usermanager.view.UserView;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
