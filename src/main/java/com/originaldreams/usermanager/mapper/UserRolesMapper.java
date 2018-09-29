@@ -11,24 +11,24 @@ import java.util.List;
  */
 @Mapper
 public interface UserRolesMapper {
-    String tableName = "user_roles";
+    String TABLE_NAME = "user_roles";
 
-     @Select("SELECT userId, roleId, createTime FROM " + tableName + " WHERE userId = #{userId}")
+     @Select("SELECT userId, roleId, createTime FROM " + TABLE_NAME + " WHERE userId = #{userId}")
      UserRoles getByUserId(Integer userId);
 
-     @Select("SELECT userId, roleId, createTime FROM " + tableName + " WHERE roleId = #{roleId}")
+     @Select("SELECT userId, roleId, createTime FROM " + TABLE_NAME + " WHERE roleId = #{roleId}")
      UserRoles getByRoleId(Integer roleId);
 
-     @Select("SELECT userId, roleId, createTime FROM " + tableName)
+     @Select("SELECT userId, roleId, createTime FROM " + TABLE_NAME)
      List<UserRoles> getAll();
 
-     @Insert("INSERT INTO " + tableName + "(userId, roleId, createTime) VALUES (#{userId}, #{roleId}, #{createTime})")
+     @Insert("INSERT INTO " + TABLE_NAME + "(userId, roleId, createTime) VALUES (#{userId}, #{roleId}, #{createTime})")
      Integer insert(UserRoles userRoles);
 
-     @Delete("DELETE FROM " + tableName + " WHERE roleId = #{roleId}")
+     @Delete("DELETE FROM " + TABLE_NAME + " WHERE roleId = #{roleId}")
      Integer deleteByRoleId(Integer roleId);
 
-     @Update("UPDATE " + tableName + " SET roleId = #{roleId} , createTime = #{createTime} WHERE userId = #{userId}")
+     @Update("UPDATE " + TABLE_NAME + " SET roleId = #{roleId} , createTime = #{createTime} WHERE userId = #{userId}")
      Integer update(UserRoles userRoles);
 
 }
