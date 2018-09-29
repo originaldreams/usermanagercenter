@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @date 2018-07-30 09:16:35
  */
 @RestController
-@RequestMapping("/userInfo")
+@RequestMapping("/api/v1/userInfo")
 public class UserInfoController {
     private Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 

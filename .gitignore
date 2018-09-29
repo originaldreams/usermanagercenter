@@ -4,6 +4,7 @@
 .idea
 .mvn
 
+/logs
 /usermanagercenter.iml
 
 /src/main/resources/application-prod.properties

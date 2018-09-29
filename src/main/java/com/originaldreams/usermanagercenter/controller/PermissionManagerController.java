@@ -22,9 +22,10 @@ import javax.annotation.Resource;
  * @date 2018-07-30 09:18:22
  */
 @RestController
-@RequestMapping("/permissionManager")
+@RequestMapping("/api/v1/permissionManager")
 public class PermissionManagerController {
-    private Logger logger = LoggerFactory.getLogger(PermissionManagerController.class);
+
+    private static Logger logger = LoggerFactory.getLogger(PermissionManagerController.class);
 
     @Resource
     private RoleService roleService;

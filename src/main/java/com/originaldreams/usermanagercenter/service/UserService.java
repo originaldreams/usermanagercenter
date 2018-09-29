@@ -11,11 +11,11 @@ import com.originaldreams.usermanagercenter.mapper.UserMapper;
 import com.originaldreams.usermanagercenter.utils.LogonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,14 +26,12 @@ import java.util.Map;
  */
 @Service
 public class UserService {
-    @Autowired
+
+    @Resource
     private UserMapper userMapper;
 
-    @Autowired
+    @Resource
     private UserInfoMapper userInfoMapper;
-
-    @Autowired
-    RestTemplate restTemplate;
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -51,6 +49,7 @@ public class UserService {
         boolean checkPassword = false;
         Integer way = null;
         MyServiceResponse responseObject = new MyServiceResponse();
+        RestTemplate restTemplate = new RestTemplate();
         if(user.getPassword() != null){
             //使用密码登录
             if(user.getUserName() != null){
@@ -138,6 +137,9 @@ public class UserService {
     public MyServiceResponse registerByPhone(User user,String verificationCode) throws Exception{
         User checker;
         MyServiceResponse responseObject = new MyServiceResponse();
+
+        RestTemplate restTemplate = new RestTemplate();
+
         if(user.getPhone() == null || user.getPassword() == null){
             responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
             responseObject.setMessage("参数异常");

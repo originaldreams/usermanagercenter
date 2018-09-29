@@ -18,9 +18,9 @@ import javax.annotation.Resource;
  * @date 2018-07-30 09:18:05
  */
 @RestController
-@RequestMapping("/permission")
+@RequestMapping("/api/v1/permission")
 public class PermissionController {
-    private Logger logger = LoggerFactory.getLogger(PermissionController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PermissionController.class);
 
     @Resource
     private UserService userService;

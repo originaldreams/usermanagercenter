@@ -2,33 +2,30 @@ package com.originaldreams.usermanagercenter.controller;
 
 import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.common.response.MyServiceResponse;
-import com.originaldreams.common.router.MyRouter;
 import com.originaldreams.common.util.StringUtils;
 import com.originaldreams.common.util.ValidUserName;
 import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 登录控制
  * 负责用户的登录和注册
- * @author 杨凯乐
+ * @author 杨凯乐 MAMIAN
  * @date 2018-07-30 09:17:03
  */
 @RestController
+@RequestMapping(value = "/api/v1")
 public class LogonController {
-    private Logger logger = LoggerFactory.getLogger(LogonController.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(LogonController.class);
 
     @Resource
     private UserService userService;
@@ -42,9 +39,11 @@ public class LogonController {
      * @param password
      * @return
      */
-    @RequestMapping(value = "/logon",method = RequestMethod.POST)
-    ResponseEntity logon(String userName,String phone,String wxId,String email,String password){
-        logger.info(userName + "--" + phone + "--" + email + "--" + password);
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    public ResponseEntity<?> login(String userName,String phone,String wxId,String email,String password){
+
+        logger.info("userName = {}, phone = {}, email = {}", userName, phone, email);
+
         if(userName == null && phone == null && email == null && password == null){
             return MyResponse.badRequest();
         }else{
@@ -53,7 +52,7 @@ public class LogonController {
             user.setPhone(phone);
             user.setWxId(wxId);
             user.setEmail(email);
-            logger.info("user logon:" + user);
+            logger.info("user login:" + user);
             user.setPassword(password);
             MyServiceResponse response = userService.logon(user);
 
