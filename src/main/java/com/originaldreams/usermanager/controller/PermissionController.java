@@ -4,15 +4,13 @@ import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.usermanager.service.RoleService;
 import com.originaldreams.usermanager.service.RouterService;
 import com.originaldreams.usermanager.service.UserService;
-import com.originaldreams.usermanagercenter.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  *  用户权限访问控制
@@ -25,11 +23,13 @@ import javax.annotation.Resource;
 public class PermissionController {
     private static final Logger logger = LoggerFactory.getLogger(PermissionController.class);
 
-    @Resource
+    @Autowired
     private UserService userService;
-    @Resource
+
+    @Autowired
     private RoleService roleService;
-    @Resource
+
+    @Autowired
     private RouterService routerService;
 
     /**

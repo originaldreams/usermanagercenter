@@ -10,24 +10,24 @@ import java.util.List;
 
 @Mapper
 public interface RoleRoutersMapper {
-    String tableName = "role_routers";
-    String userRoles = "user_roles";
+    String TABLE_NAME = "role_routers";
+    String USER_ROLES = "user_roles";
 
-    @Select("SELECT  roleId, routerId, createTime FROM " + tableName + " WHERE roleId = #{roleId}")
+    @Select("SELECT  roleId, routerId, createTime FROM " + TABLE_NAME + " WHERE roleId = #{roleId}")
     List<RoleRouters> getByRoleId(Integer roleId);
 
-    @Select("SELECT  roleId, routerId, createTime FROM " + tableName + " WHERE routerId = #{routerId}")
+    @Select("SELECT  roleId, routerId, createTime FROM " + TABLE_NAME + " WHERE routerId = #{routerId}")
     List<RoleRouters> getByRouterId(Integer routerId);
 
-    @Select("SELECT  roleId, routerId, createTime FROM " + tableName)
+    @Select("SELECT  roleId, routerId, createTime FROM " + TABLE_NAME)
     List<RoleRouters> getAll();
 
-    @Insert("INSERT INTO " + tableName + "(roleId, routerId, createTime) VALUES (#{roleId}, #{routerId}, #{createTime})")
+    @Insert("INSERT INTO " + TABLE_NAME + "(roleId, routerId, createTime) VALUES (#{roleId}, #{routerId}, #{createTime})")
     Integer insert(RoleRouters roleRouters);
 
-    @Delete("DELETE FROM " + tableName + " WHERE roleId = #{roleId}")
+    @Delete("DELETE FROM " + TABLE_NAME + " WHERE roleId = #{roleId}")
     Integer deleteByroleId(Integer roleId);
 
-    @Select({"SELECT a.roleId,a.routerId FROM " + tableName + " a," + userRoles + " b WHERE a.roleId = b.roleId AND b.userId = #{userId}"})
+    @Select({"SELECT a.roleId,a.routerId FROM " + TABLE_NAME + " a," + USER_ROLES + " b WHERE a.roleId = b.roleId AND b.userId = #{userId}"})
     List<RoleRouters> getByUserId(Integer userId);
 }

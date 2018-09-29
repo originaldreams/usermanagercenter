@@ -1,19 +1,18 @@
 package com.originaldreams.usermanager.controller;
 
 import com.originaldreams.common.response.MyResponse;
+import com.originaldreams.usermanager.service.RoleService;
+import com.originaldreams.usermanager.service.RouterService;
 import com.originaldreams.usermanagercenter.entity.Role;
 import com.originaldreams.usermanagercenter.entity.RoleRouters;
 import com.originaldreams.usermanagercenter.entity.UserRoles;
-import com.originaldreams.usermanager.service.RoleService;
-import com.originaldreams.usermanager.service.RouterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  * 用户权限管理控制
@@ -25,11 +24,12 @@ import javax.annotation.Resource;
 @RequestMapping("/api/v1/permissionManager")
 public class PermissionManagerController {
 
-    private static Logger logger = LoggerFactory.getLogger(PermissionManagerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PermissionManagerController.class);
 
-    @Resource
+    @Autowired
     private RoleService roleService;
-    @Resource
+
+    @Autowired
     private RouterService routerService;
 
     /**

@@ -1,8 +1,8 @@
 package com.originaldreams.usermanager.controller;
 
 import com.originaldreams.common.response.MyResponse;
-import com.originaldreams.usermanagercenter.entity.UserInfo;
 import com.originaldreams.usermanager.service.UserInfoService;
+import com.originaldreams.usermanagercenter.entity.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -20,7 +20,8 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/api/v1/userInfo")
 public class UserInfoController {
-    private Logger logger = LoggerFactory.getLogger(UserInfoController.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 
     @Resource
     private UserInfoService userInfoService;
