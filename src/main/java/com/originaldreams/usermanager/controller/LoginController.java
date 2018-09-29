@@ -54,7 +54,7 @@ public class LoginController {
             user.setEmail(email);
             logger.info("user login:" + user);
             user.setPassword(password);
-            MyServiceResponse response = userService.logon(user);
+            MyServiceResponse response = userService.login(user);
 
             return MyResponse.ok(response);
         }

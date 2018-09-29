@@ -7,31 +7,31 @@ import java.util.List;
 
 @Mapper
 public interface RouterMapper {
-    String tableName = "router";
-    String roleRouters = "role_routers";
+    String TABLE_NAME = "router";
+    String ROLE_ROUTERS = "role_routers";
 
-     @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod FROM " + tableName + " WHERE id = #{id}")
+     @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod FROM " + TABLE_NAME + " WHERE id = #{id}")
      Router getById(Integer Id);
 
-     @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod FROM " + tableName)
+     @Select("SELECT id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod FROM " + TABLE_NAME)
      List<Router> getAll();
 
      @Select({"SELECT a.id, a.serviceName, a.controllerName, a.methodName, a.routerUrl, a.firstMask, a.secondMask,a.requestMethod "
-             + " FROM " + tableName + " a ," + roleRouters + " b "
+             + " FROM " + TABLE_NAME + " a ," + ROLE_ROUTERS + " b "
              + " WHERE a.id = b.routerId AND b.roleId = #{roleId}"
      })
      List<Router> getRoutersByRoleId(Integer roleId);
 
-     @Insert("INSERT INTO " + tableName + "(id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod) VALUES (#{id}, #{serviceName}, #{controllerName}, #{methodName}, #{routerUrl}, #{firstMask}, #{secondMask},#{requestMethod})")
+     @Insert("INSERT INTO " + TABLE_NAME + "(id, serviceName, controllerName, methodName, routerUrl, firstMask, secondMask,requestMethod) VALUES (#{id}, #{serviceName}, #{controllerName}, #{methodName}, #{routerUrl}, #{firstMask}, #{secondMask},#{requestMethod})")
      Integer insert(Router router);
 
-     @Delete("DELETE FROM " + tableName + " WHERE id = #{id}")
+     @Delete("DELETE FROM " + TABLE_NAME + " WHERE id = #{id}")
      Integer deleteById(Integer id);
 
-     @Update("UPDATE " + tableName + " SET serviceName=#{serviceName}, controllerName=#{controllerName}, methodName=#{methodName}, routerUrl=#{routerUrl}, firstMask=#{firstMask}, secondMask=#{secondMask} WHERE id = #{id}")
+     @Update("UPDATE " + TABLE_NAME + " SET serviceName=#{serviceName}, controllerName=#{controllerName}, methodName=#{methodName}, routerUrl=#{routerUrl}, firstMask=#{firstMask}, secondMask=#{secondMask} WHERE id = #{id}")
      Integer update(Router router);
 
-     @Delete("DELETE FROM " + tableName )
+     @Delete("DELETE FROM " + TABLE_NAME)
      Integer deleteAll();
 
 }
