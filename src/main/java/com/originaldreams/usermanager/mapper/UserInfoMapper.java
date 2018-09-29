@@ -1,4 +1,4 @@
-package com.originaldreams.usermanagercenter.mapper;
+package com.originaldreams.usermanager.mapper;
 
 import com.originaldreams.usermanagercenter.entity.UserInfo;
 import org.apache.ibatis.annotations.*;

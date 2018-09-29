@@ -1,4 +1,4 @@
-package com.originaldreams.usermanagercenter.cache;
+package com.originaldreams.usermanager.cache;
 
 import com.originaldreams.common.entity.Router;
 

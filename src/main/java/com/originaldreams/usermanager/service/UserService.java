@@ -1,14 +1,14 @@
-package com.originaldreams.usermanagercenter.service;
+package com.originaldreams.usermanager.service;
 
 import com.originaldreams.common.encryption.MyMD5Utils;
 import com.originaldreams.common.response.MyServiceResponse;
 import com.originaldreams.common.router.MyRouter;
 import com.originaldreams.common.util.ResponseUtils;
+import com.originaldreams.usermanager.mapper.UserInfoMapper;
+import com.originaldreams.usermanager.mapper.UserMapper;
+import com.originaldreams.usermanager.utils.LoginUtils;
 import com.originaldreams.usermanagercenter.entity.User;
 import com.originaldreams.usermanagercenter.entity.UserInfo;
-import com.originaldreams.usermanagercenter.mapper.UserInfoMapper;
-import com.originaldreams.usermanagercenter.mapper.UserMapper;
-import com.originaldreams.usermanagercenter.utils.LogonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +58,7 @@ public class UserService {
                 //判断是否允许用户使用用户名登录
                 if(checker != null && checker.isPermitUserNameLogon()){
                     checkPassword = true;
-                    way = LogonUtils.LOGON_WAY_USERNAME;
+                    way = LoginUtils.LOGON_WAY_USERNAME;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                     responseObject.setMessage("该用户不存在或不支持用户名登录");
@@ -69,7 +69,7 @@ public class UserService {
                 //判断是否允许用户使用手机号登录
                 if(checker != null && checker.isPermitPhoneLogon()){
                     checkPassword = true;
-                    way = LogonUtils.LOGON_WAY_PHONE;
+                    way = LoginUtils.LOGON_WAY_PHONE;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                     responseObject.setMessage("该用户不存在或不支持手机号登录");
@@ -80,7 +80,7 @@ public class UserService {
                 //判断是否允许用户使用邮箱登录
                 if(checker != null && checker.isPermitEmailLogon()){
                     checkPassword = true;
-                    way = LogonUtils.LOGON_WAY_EMAIL;
+                    way = LoginUtils.LOGON_WAY_EMAIL;
                 }else{
                     responseObject.setSuccess(MyServiceResponse.SUCCESS_CODE_FAILED);
                     responseObject.setMessage("该用户不存在或不支持邮箱登录");
@@ -98,7 +98,7 @@ public class UserService {
 
                         Map<String, Object> map = new HashMap<>();
                         map.put("userId",checker.getId());
-                        map.put("type",LogonUtils.LOGON_TYPE_LOGON);
+                        map.put("type", LoginUtils.LOGON_TYPE_LOGON);
                         map.put("way", way);
                         map.put("ip","ddd");
 

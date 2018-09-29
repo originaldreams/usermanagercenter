@@ -1,8 +1,8 @@
-package com.originaldreams.usermanagercenter.controller;
+package com.originaldreams.usermanager.controller;
 
 import com.originaldreams.common.response.MyResponse;
 import com.originaldreams.usermanagercenter.entity.UserInfo;
-import com.originaldreams.usermanagercenter.service.UserInfoService;
+import com.originaldreams.usermanager.service.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
