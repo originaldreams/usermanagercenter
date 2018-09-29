@@ -1,4 +1,4 @@
-package com.originaldreams.usermanagercenter;
+package com.originaldreams.usermanager;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

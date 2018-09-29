@@ -1,4 +1,4 @@
-package com.originaldreams.usermanagercenter.view;
+package com.originaldreams.usermanager.view;
 
 import java.util.Date;
 
