@@ -1,17 +1,8 @@
 package com.originaldreams.usermanager.service;
 
-import com.originaldreams.common.response.MyServiceResponse;
-import com.originaldreams.usermanagercenter.entity.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
-    MyServiceResponse registerByPhone(User user, String verificationCode);
-
-    MyServiceResponse registerByEmail(User user, String verificationCode);
-
-    MyServiceResponse login(User user);
-
-    MyServiceResponse getUsersByRoleId(int roleId);
-
-    MyServiceResponse getAllUserNameAndRoleName();
+    UserDetails loadUserByUsername(String username);
 }

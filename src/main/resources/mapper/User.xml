@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.originaldreams.usermanager.model.mapper.UserMapper">
+    <select id="getUser" resultMap="getUserMap">
+        SELECT
+               `user`.username,
+               `user`.`password`,
+               `user`.role_id,
+               `user`.enable,
+               `user`.password_gmt_modifity,
+               `user`.enable,
+               role.auth
+        FROM
+             `user` ,
+             role
+        WHERE
+                `user`.role_id = role.role_id AND
+                `user`.username = #{username}
+    </select>
+
+    <resultMap id="getUserMap" type="com.originaldreams.usermanager.model.entity.User">
+        <id column="username" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="password_gmt_modified" property="passwordGmtModified"/>
+        <result column="auth" property="authorities"/>
+        <result column="enable" property="enable"/>
+    </resultMap>
+
+</mapper>
