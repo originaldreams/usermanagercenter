@@ -1,6 +1,9 @@
 package com.originaldreams.usermanager.config;
 
 import com.originaldreams.usermanager.auth.AuthenticationTokenFilter;
+import com.originaldreams.usermanager.auth.EntryPointUnauthorizedHandler;
+import com.originaldreams.usermanager.auth.MyAccessDeniedHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,6 +20,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    /**
+     * 注册 401 处理器
+     */
+    @Autowired
+    private EntryPointUnauthorizedHandler unauthorizedHandler;
+
+    /**
+     * 注册 403 处理器
+     */
+    @Autowired
+    private MyAccessDeniedHandler accessDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -41,6 +56,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+
+        // 配置被拦截时的处理
+
+        http
+                .exceptionHandling()
+                // 添加 token 无效或者没有携带 token 时的处理
+                .authenticationEntryPoint(this.unauthorizedHandler)
+                //添加无权限时的处理
+                .accessDeniedHandler(this.accessDeniedHandler);
 
     }
 

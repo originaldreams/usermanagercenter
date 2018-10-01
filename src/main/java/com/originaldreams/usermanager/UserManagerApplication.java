@@ -1,8 +1,10 @@
 package com.originaldreams.usermanager;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@MapperScan(value = {"com.originaldreams.usermanager.model.mapper"})
 @SpringBootApplication
 public class UserManagerApplication {
 

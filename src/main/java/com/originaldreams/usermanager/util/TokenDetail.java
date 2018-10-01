@@ -1,8 +1,5 @@
 package com.originaldreams.usermanager.util;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class TokenDetail {
     private String username;
 

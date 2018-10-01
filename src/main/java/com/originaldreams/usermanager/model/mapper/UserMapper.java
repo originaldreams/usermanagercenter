@@ -3,7 +3,9 @@ package com.originaldreams.usermanager.model.mapper;
 import com.originaldreams.usermanager.model.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper
 public interface UserMapper {
 
