@@ -106,12 +106,12 @@ public class TokenUtil {
     /**
      * 根据 TokenDetail 生成 Token
      *
-     * @param tokenDetail
+     * @param userDetails
      * @return
      */
-    public String generateToken(TokenDetail tokenDetail) {
+    public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("sub", tokenDetail.getUsername());
+        claims.put("sub", userDetails.getUsername());
         claims.put("created", this.generateCurrentDate());
         return this.createJWT(claims);
     }

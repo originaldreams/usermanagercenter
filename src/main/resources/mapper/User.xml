@@ -3,27 +3,22 @@
 <mapper namespace="com.originaldreams.usermanager.model.mapper.UserMapper">
     <select id="getUser" resultMap="getUserMap">
         SELECT
-               `user`.username,
-               `user`.`password`,
-               `user`.role_id,
-               `user`.enable,
-               `user`.password_gmt_modifity,
-               `user`.enable,
-               role.auth
+               username,
+               password
         FROM
-             `user` ,
-             role
-        WHERE
-                `user`.role_id = role.role_id AND
-                `user`.username = #{username}
+             `user`
     </select>
 
     <resultMap id="getUserMap" type="com.originaldreams.usermanager.model.entity.User">
-        <id column="username" property="userName"/>
+        <id column="username" property="username"/>
         <result column="password" property="password"/>
-        <result column="password_gmt_modified" property="passwordGmtModified"/>
+        <result column="last_password_reset_date" property="lastPasswordResetDate"/>
         <result column="auth" property="authorities"/>
         <result column="enable" property="enable"/>
     </resultMap>
+
+    <insert id="saveUser">
+        INSERT INTO
+    </insert>
 
 </mapper>

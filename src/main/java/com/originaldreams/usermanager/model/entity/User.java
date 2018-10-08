@@ -2,39 +2,30 @@ package com.originaldreams.usermanager.model.entity;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
-    private static final Integer ENABLE = 0;
-    private static final Integer DISABLE = 1;
-
     private Long id;
-    private String userName;
+    private String username;
     private String password;
+    private String email;
     private String authorities;
-    private Date passwordGmtModified;
-    private Integer enable;
+    private Date lastPasswordResetDate;
+    private List<String> roles;
 
     public User() {
     }
 
-    public User(Long id, String userName, String password, String authorities, Date passwordGmtModified, Integer enable) {
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
-        this.authorities = authorities;
-        this.passwordGmtModified = passwordGmtModified;
-        this.enable = enable;
-    }
-
-    public static User newInstance(Long id, String userName, String password, String authorities, Date passwordGmtModifity, Integer enable) {
+    public static User newInstance(Long id, String userName, String password, String authorities, String email, Date lastPasswordResetDate, List<String> roles) {
         User user = new User();
         user.id = id;
-        user.userName = userName;
+        user.username = userName;
         user.password = password;
         user.authorities = authorities;
-        user.passwordGmtModified = passwordGmtModifity;
-        user.enable = enable;
+        user.email = email;
+        user.lastPasswordResetDate = lastPasswordResetDate;
+        user.roles = roles;
         return user;
     }
 
@@ -46,12 +37,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -70,23 +61,27 @@ public class User {
         this.authorities = authorities;
     }
 
-    public Date getPasswordGmtModified() {
-        return passwordGmtModified;
+    public Date getLastPasswordResetDate() {
+        return lastPasswordResetDate;
     }
 
-    public void setPasswordGmtModified(Date passwordGmtModified) {
-        this.passwordGmtModified = passwordGmtModified;
+    public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
-    public Integer getEnable() {
-        return enable;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEnable(Integer enable) {
-        this.enable = enable;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public boolean isEnable() {
-        return this.getEnable().equals(ENABLE);
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }
