@@ -6,6 +6,7 @@ import com.originaldreams.usermanager.auth.MyAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,6 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+
+                .antMatchers("/auth/**").permitAll()
                 // 需携带有效token
                 .antMatchers("/auth").authenticated()
                 //  // 需拥有 admin 这个权限
@@ -44,8 +47,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 需拥有 ADMIN 这个身份
                 .antMatchers("/ADMIN").hasAnyAuthority("ADMIN")
 
-                // 允许所有请求通过
-                .anyRequest().permitAll()
+                // 允许对于网站静态资源的无授权访问
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/",
+                        "/*.html",
+                        "/favicon.ico",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js"
+                ).permitAll()
+
+                // 其他请求
+                .anyRequest().authenticated()
                 .and()
                 // 禁用 Spring Security 自带的csrf处理
                 .csrf().disable()

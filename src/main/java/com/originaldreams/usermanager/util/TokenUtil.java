@@ -1,9 +1,7 @@
 package com.originaldreams.usermanager.util;
 
-import com.originaldreams.common.util.JwtUtil;
 import com.originaldreams.usermanager.config.JwtProperties;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.SignatureException;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +18,14 @@ import java.util.Map;
 @Component
 public class TokenUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(TokenUtil.class);
 
-    public TokenUtil() {
-
-    }
+    private JwtProperties jwtProperties;
 
     @Autowired
-    private JwtProperties jwtProperties;
+    public TokenUtil(JwtProperties jwtProperties) {
+        this.jwtProperties = jwtProperties;
+    }
 
     /**
      * 由字符串生成加密key
@@ -183,18 +181,18 @@ public class TokenUtil {
         return claims;
     }
 
-    public static boolean isJwtString(String jwtToken) {
-        if (null == jwtToken || jwtToken.trim().isEmpty()) {
-            return false;
-        }
-        JwtUtil jwtUtil = new JwtUtil();
-        try {
-            jwtUtil.parseJWT(jwtToken);
-            return true;
-        } catch (MalformedJwtException | SignatureException | ExpiredJwtException | UnsupportedJwtException |
-                IllegalArgumentException e) {
-            return false;
-        }
-
-    }
+//    public static boolean isJwtString(String jwtToken) {
+//        if (null == jwtToken || jwtToken.trim().isEmpty()) {
+//            return false;
+//        }
+//
+//        try {
+//            this.parseJWT(jwtToken);
+//            return true;
+//        } catch (MalformedJwtException | SignatureException | ExpiredJwtException | UnsupportedJwtException |
+//                IllegalArgumentException e) {
+//            return false;
+//        }
+//
+//    }
 }

@@ -1,6 +1,9 @@
 package com.originaldreams.usermanager.service;
 
-public class LoginService {
+import com.originaldreams.usermanager.model.dto.LoginDTO;
+import com.originaldreams.usermanager.model.vo.LoginVO;
 
-    login();
+public interface LoginService {
+
+    LoginVO login(LoginDTO loginDTO);
 }

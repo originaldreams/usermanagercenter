@@ -1,8 +1,11 @@
 package com.originaldreams.usermanager.auth;
 
 import com.originaldreams.usermanager.service.UserService;
-import com.originaldreams.usermanager.util.TokenDetail;
 import com.originaldreams.usermanager.util.TokenUtil;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,25 +19,36 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFilter {
-    private String tokenHeader = "token";
 
-    private TokenDetail tokenDetail;
 
-    @Autowired
-    private TokenUtil tokenUtil;
+    private static final String TOKEN_HEADER = "token";
 
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TokenUtil tokenUtil;
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) res;
 
-        String authToken = httpRequest.getHeader(this.tokenHeader);
+        HttpServletRequest httpRequest = (HttpServletRequest) req;
 
-        String username = this.tokenUtil.getSubjectFromToken(authToken);
+        String authToken = httpRequest.getHeader(TOKEN_HEADER);
+
+        String username;
+        try {
+            username = tokenUtil.getSubjectFromToken(authToken);
+        } catch (MalformedJwtException | SignatureException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException e ) {
+            res.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+            res.setContentType("application/json;charset=UTF-8");
+            res.getWriter().print("{\"code\":\"401\",\"data\":\"\",\"message\":\"token错误\"}");
+            return;
+        }
+
 
         // 如果上面解析 token 成功并且拿到了 username 并且本次会话的权限还未被写入
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -44,7 +58,7 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
             // 检查用户带来的 token 是否有效
             // 包括 token 和 userDetails 中用户名是否一样， token 是否过期， token 生成时间是否在最后一次密码修改时间之前
             // 若是检查通过
-            if (this.tokenUtil.validateToken(authToken, userDetails)) {
+            if (tokenUtil.validateToken(authToken, userDetails)) {
                 // 生成通过认证
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
