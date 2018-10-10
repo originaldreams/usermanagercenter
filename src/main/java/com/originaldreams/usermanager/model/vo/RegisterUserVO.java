@@ -8,6 +8,14 @@ public class RegisterUserVO {
     private String username;
     private String message;
 
+    public RegisterUserVO(String username, String message) {
+        this.username = username;
+        this.message = message;
+    }
+
+    public RegisterUserVO() {
+    }
+
     public static RegisterUserVO newInstanceWithUser(User user, String message) {
         RegisterUserVO registerUserVO = new RegisterUserVO();
         BeanUtils.copyProperties(user, registerUserVO);

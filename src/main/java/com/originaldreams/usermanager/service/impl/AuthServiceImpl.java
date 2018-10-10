@@ -1,5 +1,7 @@
 package com.originaldreams.usermanager.service.impl;
 
+import com.originaldreams.usermanager.exception.BadRequestException;
+import com.originaldreams.usermanager.exception.ErrorDetails;
 import com.originaldreams.usermanager.model.dto.LoginDTO;
 import com.originaldreams.usermanager.model.dto.RegisterUserDTO;
 import com.originaldreams.usermanager.model.entity.User;
@@ -41,7 +43,8 @@ public class AuthServiceImpl implements AuthService {
         final String username = registerUserDTO.getUsername();
         if(userMapper.findByUsername(username) != null) {
             // 重名
-            return null;
+            ErrorDetails errorDetails = new ErrorDetails<>("请勿重复注册", null);
+            throw new BadRequestException(errorDetails);
         }
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         final String rawPassword = registerUserDTO.getPassword();

@@ -1,10 +1,11 @@
 package com.originaldreams.usermanager.model.entity;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
 
     private Long id;
     private String username;
@@ -15,6 +16,16 @@ public class User {
     private List<String> roles;
 
     public User() {
+    }
+
+    public User(Long id, String username, String password, String email, String authorities, Date lastPasswordResetDate, List<String> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.authorities = authorities;
+        this.lastPasswordResetDate = lastPasswordResetDate;
+        this.roles = roles;
     }
 
     public static User newInstance(Long id, String userName, String password, String authorities, String email, Date lastPasswordResetDate, List<String> roles) {
@@ -83,5 +94,18 @@ public class User {
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", authorities='" + authorities + '\'' +
+                ", lastPasswordResetDate=" + lastPasswordResetDate +
+                ", roles=" + roles +
+                '}';
     }
 }

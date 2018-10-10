@@ -1,6 +1,6 @@
 package com.originaldreams.usermanager.auth;
 
-import com.originaldreams.usermanager.service.UserService;
+import com.originaldreams.usermanager.service.impl.UserDetailsServiceImpl;
 import com.originaldreams.usermanager.util.TokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -27,7 +27,7 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
     private static final String TOKEN_HEADER = "token";
 
     @Autowired
-    private UserService userService;
+    private UserDetailsServiceImpl userService;
 
     @Autowired
     private TokenUtil tokenUtil;

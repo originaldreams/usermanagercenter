@@ -1,7 +1,5 @@
 package com.originaldreams.usermanager.config;
 
-import com.originaldreams.usermanager.auth.EntryPointUnauthorizedHandler;
-import com.originaldreams.usermanager.auth.MyAccessDeniedHandler;
 import com.originaldreams.usermanager.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,14 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 注册 401 处理器
      */
-    @Autowired
-    private EntryPointUnauthorizedHandler unauthorizedHandler;
-
-    /**
-     * 注册 403 处理器
-     */
-    @Autowired
-    private MyAccessDeniedHandler accessDeniedHandler;
+//    @Autowired
+//    private EntryPointUnauthorizedHandler unauthorizedHandler;
+//
+//    /**
+//     * 注册 403 处理器
+//     */
+//    @Autowired
+//    private MyAccessDeniedHandler accessDeniedHandler;
 
     // 装载BCrypt密码编码器
     @Bean

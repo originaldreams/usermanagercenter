@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.originaldreams.usermanager.model.mapper.UserMapper" >
+<resultMap id="BaseResultMap" type="com.originaldreams.usermanager.model.entity.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+</resultMap>
+
+<sql id="Base_Column_List" >
+    id, username, password
+</sql>
+
+<select id="listAllUsers" resultMap="BaseResultMap"  >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM user
+</select>
+
+<!--<select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >-->
+    <!--SELECT-->
+    <!--<include refid="Base_Column_List" />-->
+    <!--FROM user-->
+    <!--WHERE id = #{id}-->
+<!--</select>-->
+
+<select id="findByUsername" parameterType="java.lang.String" resultMap="BaseResultMap" >
+SELECT
+<include refid="Base_Column_List" />
+FROM user
+WHERE username = #{username}
+</select>
+
+<insert id="saveUser" parameterType="User" useGeneratedKeys="true">
+    INSERT INTO
+    user
+            (username, password, enable, last_password_modified, gmt_create, gmt_modified)
+    VALUES
+           (#{username}, #{password}, 0, NOW(), NOW(), NOW())
+</insert>
+
+<!--<update id="update" parameterType="com.neo.entity.UserEntity" >-->
+    <!--UPDATE-->
+    <!--user-->
+    <!--SET-->
+    <!--<if test="userName != null">userName = #{userName},</if>-->
+    <!--<if test="passWord != null">passWord = #{passWord},</if>-->
+    <!--nick_name = #{nickName}-->
+    <!--WHERE-->
+    <!--id = #{id}-->
+<!--</update>-->
+
+<!--<delete id="delete" parameterType="java.lang.Long" >-->
+    <!--DELETE FROM-->
+                <!--user-->
+    <!--WHERE-->
+            <!--id =#{id}-->
+<!--</delete>-->
+
+</mapper>

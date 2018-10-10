@@ -27,12 +27,10 @@ public class AuthController {
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginDTO loginDTO, BindingResult bindingResult) {
 
-
         if (bindingResult.hasErrors()) {
             logger.warn("login bad request {}", loginDTO);
             return ResponseEntity.badRequest().body("");
         }
-
 
         logger.info("login {}", loginDTO);
         return ResponseEntity.ok().body(authService.login(loginDTO));
