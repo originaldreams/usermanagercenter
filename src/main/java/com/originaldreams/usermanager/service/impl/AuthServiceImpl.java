@@ -1,5 +1,6 @@
 package com.originaldreams.usermanager.service.impl;
 
+import com.originaldreams.usermanager.auth.SecurityProvider;
 import com.originaldreams.usermanager.exception.BadRequestException;
 import com.originaldreams.usermanager.exception.ErrorDetails;
 import com.originaldreams.usermanager.model.dto.LoginDTO;
@@ -65,12 +66,23 @@ public class AuthServiceImpl implements AuthService {
     public LoginVO login(LoginDTO loginDTO) {
 
         final String username = loginDTO.getUsername();
-        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(
-                username, loginDTO.getPassword());
-        final Authentication authentication = authenticationManager.authenticate(upToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        if (userDetails == null) {
+            ErrorDetails errorDetails = new ErrorDetails("用户名或密码错误");
+            throw new BadRequestException(errorDetails);
+        }
+        // 查询Role
+
+        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(
+                username, loginDTO.getPassword());
+        SecurityProvider securityProvider = new SecurityProvider();
+        final Authentication authentication = securityProvider.authenticate(upToken);
+//        final Authentication authentication = authenticationManager.authenticate(upToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
         final String token = tokenUtil.generateToken(userDetails);
         LoginVO loginVO = new LoginVO();
         loginVO.setToken(token);

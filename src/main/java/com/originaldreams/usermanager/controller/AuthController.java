@@ -32,7 +32,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("");
         }
 
-        logger.info("login {}", loginDTO);
+        logger.info("login username = {}", loginDTO.getUsername());
         return ResponseEntity.ok().body(authService.login(loginDTO));
     }
 
