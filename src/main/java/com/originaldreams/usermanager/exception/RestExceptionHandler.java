@@ -20,18 +20,17 @@ public class RestExceptionHandler {
     private static final String BAD_REQUEST_MESSAGE = "参数错误";
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Object> handleNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+    public ResponseEntity<?> handleNotFoundException(ResourceNotFoundException ex, WebRequest request) {
 
         return new ResponseEntity<>(
                 ex.getDetails(),
-                HttpStatus.OK);
+                HttpStatus.NOT_FOUND);
     }
 
 
     @ExceptionHandler({BadRequestException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<?> handleBadRequestException(BadRequestException ex, WebRequest request) {
-        return new ResponseEntity<>(ex.getDetails(),
-                HttpStatus.OK);
+        return new ResponseEntity<>(ex.getDetails(), HttpStatus.BAD_REQUEST);
     }
 
 }
