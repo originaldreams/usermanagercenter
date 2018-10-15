@@ -2,7 +2,6 @@ package com.originaldreams.usermanager.util;
 
 import com.originaldreams.usermanager.config.JwtProperties;
 import io.jsonwebtoken.*;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +33,10 @@ public class TokenUtil {
      */
     private SecretKey generalKey(){
         String stringKey = jwtProperties.getSecret();
-        byte[] encodedKey = Base64.decodeBase64(stringKey);
-        SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
+//        byte[] encodedKey = Base64.decodeBase64(stringKey);
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary (stringKey);
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+        SecretKey key = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
         return key;
     }
 
