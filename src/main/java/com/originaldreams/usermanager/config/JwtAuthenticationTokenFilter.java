@@ -30,25 +30,27 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        String authHeader = request.getHeader(this.tokenHeader);
-        if (authHeader != null) {
-            final String authToken = authHeader;
-            String username = jwtTokenUtil.getSubjectFromToken(authToken);
+        String authToken = request.getHeader(this.tokenHeader);
+        if (authToken == null || authToken.isEmpty() || authToken.trim().isEmpty()) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-            logger.info("checking authentication " + username);
+        String username = jwtTokenUtil.getSubjectFromToken(authToken);
 
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        logger.info("checking authentication " + username);
 
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-                if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
-                            request));
-                    logger.info("authenticated user " + username + ", setting security context");
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+
+            if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(
+                        request));
+                logger.info("authenticated user " + username + ", setting security context");
+                SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
 

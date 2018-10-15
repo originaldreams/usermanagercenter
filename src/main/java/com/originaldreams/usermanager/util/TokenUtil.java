@@ -1,6 +1,7 @@
 package com.originaldreams.usermanager.util;
 
 import com.originaldreams.usermanager.config.JwtProperties;
+import com.originaldreams.usermanager.model.entity.JwtUser;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,10 +48,10 @@ public class TokenUtil {
      * @return
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
-        UserDetailImpl user = (UserDetailImpl) userDetails;
+        JwtUser user = (JwtUser) userDetails;
         final String username = this.getSubjectFromToken(token);
         final Date created = this.getCreatedDateFromToken(token);
-        return (username.equals(user.getUsername()) && !(this.isTokenExpired(token)) && !(this.isCreatedBeforeLastPasswordReset(created, user.getLastPasswordReset())));
+        return (username.equals(user.getUsername()) && !(this.isTokenExpired(token)) && !(this.isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())));
     }
 
     /**
