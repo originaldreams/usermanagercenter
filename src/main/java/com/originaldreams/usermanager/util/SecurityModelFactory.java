@@ -18,7 +18,7 @@
 //        }
 //
 //        Date lastPasswordReset = new Date();
-//        lastPasswordReset.setTime(user.getLastPasswordResetDate().getTime());
+//        lastPasswordReset.setTime(user.getLastPasswordModified().getTime());
 //        return UserDetailImpl.newInstance(
 //                user.getUsername(),
 //                user.getUsername(),

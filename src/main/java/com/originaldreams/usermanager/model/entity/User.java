@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 实体类，去掉部分不需要的属性
+ */
 public class User implements Serializable {
 
     private Long id;
@@ -12,20 +15,20 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String authorities;
-    private Date lastPasswordResetDate;
-    private List<String> roles;
+    private Date lastPasswordModified;
+//    private List<String> roles;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, String authorities, Date lastPasswordResetDate, List<String> roles) {
+    public User(Long id, String username, String password, String email, String authorities, Date lastPasswordModified, List<String> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.authorities = authorities;
-        this.lastPasswordResetDate = lastPasswordResetDate;
-        this.roles = roles;
+        this.lastPasswordModified = lastPasswordModified;
+//        this.roles = roles;
     }
 
     public static User newInstance(Long id, String userName, String password, String authorities, String email, Date lastPasswordResetDate, List<String> roles) {
@@ -35,8 +38,8 @@ public class User implements Serializable {
         user.password = password;
         user.authorities = authorities;
         user.email = email;
-        user.lastPasswordResetDate = lastPasswordResetDate;
-        user.roles = roles;
+        user.lastPasswordModified = lastPasswordResetDate;
+//        user.roles = roles;
         return user;
     }
 
@@ -72,12 +75,12 @@ public class User implements Serializable {
         this.authorities = authorities;
     }
 
-    public Date getLastPasswordResetDate() {
-        return lastPasswordResetDate;
+    public Date getLastPasswordModified() {
+        return lastPasswordModified;
     }
 
-    public void setLastPasswordResetDate(Date lastPasswordResetDate) {
-        this.lastPasswordResetDate = lastPasswordResetDate;
+    public void setLastPasswordModified(Date lastPasswordModified) {
+        this.lastPasswordModified = lastPasswordModified;
     }
 
     public String getEmail() {
@@ -88,24 +91,24 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", authorities='" + authorities + '\'' +
-                ", lastPasswordResetDate=" + lastPasswordResetDate +
-                ", roles=" + roles +
-                '}';
-    }
+//    public List<String> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<String> roles) {
+//        this.roles = roles;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", email='" + email + '\'' +
+//                ", authorities='" + authorities + '\'' +
+//                ", lastPasswordModified=" + lastPasswordModified +
+//                ", roles=" + roles +
+//                '}';
+//    }
 }

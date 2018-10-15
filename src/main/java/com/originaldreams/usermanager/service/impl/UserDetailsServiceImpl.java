@@ -51,8 +51,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             for (Role role : roleList) {
                 roleNames.add(role.getName());
             }
-            user.setRoles(roleNames);
-            return JwtUserFactory.create(user);
+//            user.setRoles(roleNames);
+            return JwtUserFactory.create(user, roleNames);
         }
     }
 

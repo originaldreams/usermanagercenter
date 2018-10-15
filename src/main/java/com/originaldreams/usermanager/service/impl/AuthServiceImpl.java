@@ -66,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(encoder.encode(rawPassword));
-        user.setLastPasswordResetDate(new Date());
+        user.setLastPasswordModified(new Date());
         // TODO save role
 
         this.userMapper.saveUser(user);
