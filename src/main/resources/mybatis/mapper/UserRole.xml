@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.originaldreams.usermanager.model.mapper.UserRoleMapper" >
+<resultMap id="UserResultMap" type="com.originaldreams.usermanager.model.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+    <!--<collection javaType="ArrayList" property="user" resultMap="RoleResultMap" />-->
+</resultMap>
+
+<resultMap id="RoleResultMap" type="com.originaldreams.usermanager.model.entity.Role">
+<id column="id" jdbcType="INTEGER" property="id"/>
+<result column="name" jdbcType="VARCHAR" property="name"/>
+<!--<collection javaType="ArrayList" property="role" resultMap="UserResultMap" />-->
+</resultMap>
+
+<insert id="saveUserRole">
+INSERT INTO user_role (user_id, role_id)
+VALUES (#{userId}, #{roleId});
+</insert>
+
+<delete id="removeUserRole" >
+DELETE FROM user_role
+WHERE user_id=#{userId} AND role_id=#{roleId}
+</delete>
+
+<select id="listAllRolesByUserId" resultMap="RoleResultMap">
+SELECT
+r.id AS id, r.name AS name
+FROM user AS u
+LEFT JOIN user_role AS ur ON u.id = ur.user_id
+LEFT JOIN role AS r ON r.id = ur.role_id
+WHERE u.id = #{id}
+</select>
+
+<select id="listAllUsers" resultMap="UserResultMap">
+SELECT
+u.id AS id, u.username AS username
+FROM role AS  r
+LEFT JOIN user_role AS ur ON r.id = ur.roleId
+LEFT JOIN user AS u ON u.id = ur.userId
+WHERE r.id = #{id}
+</select>
+</mapper>
