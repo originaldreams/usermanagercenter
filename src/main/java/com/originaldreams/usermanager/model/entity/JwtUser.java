@@ -10,6 +10,7 @@ import java.util.Date;
 
 /**
  * 这个接口中规定了用户的几个必须要有的方法，所以我们创建一个JwtUser类来实现这个接口。为什么不直接使用User类？因为这个UserDetails完全是为了安全服务的，它和我们的领域类可能有部分属性重叠，但很多的接口其实是安全定制的，所以最好新建一个类：
+ * 存储在Token里边的信息
  */
 public class JwtUser implements UserDetails {
 

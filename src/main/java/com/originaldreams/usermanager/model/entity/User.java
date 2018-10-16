@@ -14,21 +14,33 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String email;
-    private String authorities;
+//    private String authorities;
     private Date lastPasswordModified;
+
+    /** account_non_expired */
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean enabled;
+
+
+
 //    private List<String> roles;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, String authorities, Date lastPasswordModified, List<String> roles) {
+
+    public User(Long id, String username, String password, String email, Date lastPasswordModified, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.authorities = authorities;
         this.lastPasswordModified = lastPasswordModified;
-//        this.roles = roles;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
     }
 
     public static User newInstance(Long id, String userName, String password, String authorities, String email, Date lastPasswordResetDate, List<String> roles) {
@@ -36,7 +48,7 @@ public class User implements Serializable {
         user.id = id;
         user.username = userName;
         user.password = password;
-        user.authorities = authorities;
+//        user.authorities = authorities;
         user.email = email;
         user.lastPasswordModified = lastPasswordResetDate;
 //        user.roles = roles;
@@ -67,13 +79,13 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(String authorities) {
-        this.authorities = authorities;
-    }
+//    public String getAuthorities() {
+//        return authorities;
+//    }
+//
+//    public void setAuthorities(String authorities) {
+//        this.authorities = authorities;
+//    }
 
     public Date getLastPasswordModified() {
         return lastPasswordModified;
@@ -91,7 +103,39 @@ public class User implements Serializable {
         this.email = email;
     }
 
-//    public List<String> getRoles() {
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    //    public List<String> getRoles() {
 //        return roles;
 //    }
 //
@@ -99,16 +143,16 @@ public class User implements Serializable {
 //        this.roles = roles;
 //    }
 //
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", email='" + email + '\'' +
-//                ", authorities='" + authorities + '\'' +
-//                ", lastPasswordModified=" + lastPasswordModified +
-//                ", roles=" + roles +
-//                '}';
-//    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", lastPasswordModified=" + lastPasswordModified +
+                '}';
+    }
 }
