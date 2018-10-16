@@ -21,7 +21,6 @@ public class UserController {
     public ResponseEntity<?> getUsers() {
         // TODO
         return ResponseEntity.ok().body("");
-
     }
 
     @GetMapping(value = "/{id}")

@@ -21,7 +21,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleNotFoundException(ResourceNotFoundException ex, WebRequest request) {
-
+        logger.warn("resource not found, details = {}", ex.getDetails());
         return new ResponseEntity<>(
                 ex.getDetails(),
                 HttpStatus.NOT_FOUND);
@@ -30,6 +30,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler({BadRequestException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<?> handleBadRequestException(BadRequestException ex, WebRequest request) {
+        logger.warn("BadRequestException, details = {}", ex.getDetails());
         return new ResponseEntity<>(ex.getDetails(), HttpStatus.BAD_REQUEST);
     }
 
