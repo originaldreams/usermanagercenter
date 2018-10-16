@@ -1,5 +1,7 @@
 package com.originaldreams.usermanager.config;
 
+import com.originaldreams.usermanager.auth.EntryPointUnauthorizedHandler;
+import com.originaldreams.usermanager.auth.MyAccessDeniedHandler;
 import com.originaldreams.usermanager.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,14 +33,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 注册 401 处理器
      */
-//    @Autowired
-//    private EntryPointUnauthorizedHandler unauthorizedHandler;
-//
-//    /**
-//     * 注册 403 处理器
-//     */
-//    @Autowired
-//    private MyAccessDeniedHandler accessDeniedHandler;
+    @Autowired
+    private EntryPointUnauthorizedHandler unauthorizedHandler;
+
+    /**
+     * 注册 403 处理器
+     */
+    @Autowired
+    private MyAccessDeniedHandler accessDeniedHandler;
 
     // 装载BCrypt密码编码器
     @Bean
@@ -123,6 +125,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 // 对于获取token的rest api要允许匿名访问
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/**").hasRole(SecurityConstant.USER)
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
 
@@ -131,6 +134,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+
+
+        http
+                .exceptionHandling()
+                // 添加 token 无效或者没有携带 token 时的处理
+                .authenticationEntryPoint(this.unauthorizedHandler)
+                //添加无权限时的处理
+                .accessDeniedHandler(this.accessDeniedHandler);
 
     }
 

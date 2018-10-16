@@ -1,5 +1,7 @@
 package com.originaldreams.usermanager.auth;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -8,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Component
 public class EntryPointUnauthorizedHandler implements AuthenticationEntryPoint {
@@ -25,10 +28,12 @@ public class EntryPointUnauthorizedHandler implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         //返回json形式的错误信息
 
-        httpServletResponse.setCharacterEncoding("UTF-8");
-        httpServletResponse.setContentType("application/json");
+        httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        httpServletResponse.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+        httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
 
-        httpServletResponse.getWriter().println("{\"code\":401,\"message\":\"小弟弟，你没有携带 token 或者 token 无效！\",\"data\":\"\"}");
+        // TODO
+        httpServletResponse.getWriter().println("{\"code\":401,\"message\":\"你没有携带 token 或者 token 无效！\"}");
         httpServletResponse.getWriter().flush();
     }
 

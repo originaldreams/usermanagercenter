@@ -1,5 +1,7 @@
 package com.originaldreams.usermanager.auth;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -14,11 +16,12 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException {
-        httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-        httpServletResponse.setContentType("application/json");
+        httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        httpServletResponse.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+        httpServletResponse.setStatus(HttpStatus.FORBIDDEN.value());
 
 
-        httpServletResponse.getWriter().println("{\"code\":403,\"message\":\"小弟弟，你没有权限访问呀！\",\"data\":\"\"}");
+        httpServletResponse.getWriter().println("{\"code\":403,\"message\":\"你没有权限访问\"}");
         httpServletResponse.getWriter().flush();
 
     }

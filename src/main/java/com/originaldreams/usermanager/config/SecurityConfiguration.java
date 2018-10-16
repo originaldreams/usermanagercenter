@@ -1,16 +1,13 @@
 package com.originaldreams.usermanager.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
 
+/**
+ * 默认权限有 ROLE_ 前缀
+ */
 @Configuration
 public class SecurityConfiguration {
 
-    @Bean
-    GrantedAuthorityDefaults grantedAuthorityDefaults() {
-        // Remove the ROLE_ prefix
-        return new GrantedAuthorityDefaults("");
-    }
+
 
 }
