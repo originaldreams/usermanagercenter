@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.originaldreams.usermanager.model.mapper.UserRoleMapper" >
-<resultMap id="UserResultMap" type="com.originaldreams.usermanager.model.entity.User">
+<mapper namespace="com.originaldreams.passport.model.mapper.UserRoleMapper" >
+<resultMap id="UserResultMap" type="com.originaldreams.passport.model.entity.User">
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="username" jdbcType="VARCHAR" property="username"/>
     <!--<collection javaType="ArrayList" property="user" resultMap="RoleResultMap" />-->
 </resultMap>
 
-<resultMap id="RoleResultMap" type="com.originaldreams.usermanager.model.entity.Role">
+<resultMap id="RoleResultMap" type="com.originaldreams.passport.model.entity.Role">
 <id column="id" jdbcType="INTEGER" property="id"/>
 <result column="name" jdbcType="VARCHAR" property="name"/>
 <!--<collection javaType="ArrayList" property="role" resultMap="UserResultMap" />-->

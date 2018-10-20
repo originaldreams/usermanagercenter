@@ -1,6 +1,6 @@
 package com.originaldreams.usermanager;
 
-import com.originaldreams.usermanager.config.JwtProperties;
+import com.originaldreams.passport.config.JwtProperties;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
